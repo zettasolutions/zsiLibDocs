@@ -15,19 +15,6 @@
 <div class="main">
 <a name="top"></a>
 
-<h2 id="loadmonths" >Calendar  &#9658;  LoadMonths : <span class="func"> function (  select_object )  <span></h2>
-
-<p >Fill Select object with the list of months </p>
-<pre class="brush: js;">   
-    //Example:
-	
-	$(document).ready(function(){
-	
-		zsi.calendar.LoadMonths("p_months");
-	});
-	
-	
-</pre>
 <h2 id="selectlist">Control  &#9658;  SelectList : <span class="func"> function( [select_object], selected_value, is_required, db_table, value, text, condition, callback_function(optional))</span> </h2>
 <p >Fill Select object with the list of values from specified url request. </p>
 <pre class="brush: js;">   
@@ -308,46 +295,6 @@
 		  
  
 	});	
-</pre>
-
-
-<h2 id="resizegrid">table &#9658; dhtmlx &#9658; ResizeGrid : <span class="func"> function(window_object, dhtmlx_object, height(optional) ) <span></h2>
-<p >resize the dhtmlx table </p>
-<pre class="brush: js;">   
-    //Example: 
-	
-	//on page loaded
-	$(document).ready(function(){     
-	   mygrid = dhtmlXGridFromTable("gridbox1");
-	   mygrid.setSkin("light");
-	   mygrid.setImagePath("<%= l_dhtmlx_path %>dhtmlxGrid/codebase/imgs/");
-	   mygrid.setEditable(false);
-	   mygrid.lockRow(0, true);
-	   mygrid.enableLightMouseNavigation(true);
-	   mygrid.setColSorting("<%= l_dhtmlx_sort %>");
-	   mygrid.clearAll();
-	   zsi.table.dhtmlx.ResizeGrid(window, mygrid);
-	  
-	});
-
-</pre>
-
-<h2 id="unescape">table &#9658; dhtmlx &#9658; Unescape : <span class="func"> function(dhtmlx_json_data,column_index ) <span></h2>
-<p >unescape the escape characters. </p>
-<pre class="brush: js;">   
-    //Example: 
-	
-      $.getJSON("employees_json"
-         ,function(data){
-            zsi.table.dhtmlx.Unescape(data,2);
-            mygrid.parse(data, "json");
-            l_page_rows=data.page_rows;
-            zsi.page.DisplayRecordPage(data.page_no,data.page_rows,data.row_count);
-         }
-      
-      );
-
-
 </pre>
 
 <h2 id="getcheckboxval">table &#9658;  getCheckBoxesValues : <span class="func"> function($selector, pre_value, delimited_character) <span></h2>
