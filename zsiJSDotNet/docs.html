@@ -12,51 +12,36 @@
 	
 </head>
 <body>
-<div class="main">
-<a name="top"></a>
 
-<h2 id="selectlist">Control  &#9658;  SelectList : <span class="func"> function( [select_object], selected_value, is_required, db_table, value, text, condition, callback_function(optional))</span> </h2>
-<p >Fill Select object with the list of values from specified url request. </p>
+<div class="main">
+
+<a name="top"></a>
+<h2 id="ctrl">bs  &#9658;  ctrl : <span class="func"> function()</span> </h2>
+<p >ctrl</p>
 <pre class="brush: js;">   
     //Example 1:
 	
-	$(document).ready(function(){
+	var bs                 = zsi.bs.ctrl
 	
-		 zsi.control.SelectList(
-			 "#p_direct_superior"
-			,"123"
-			,"N"
-			,"employees"
-			,"empl_id_no"
-			,"empl_name"
-			," ORDER BY empl_name" 
-		);
-		
-	});
-	
-	//Example 2 with callback function:	
-	$(document).ready(function(){
-	
-		zsi.control.SelectList(
-			 "#p_direct_superior"
-			,"123"
-			,"N"
-			,"employees"
-			,"empl_id_no"
-			,"empl_name"
-			," ORDER BY empl_name"
-			,function(){
-				console.log("data has been loaded");
-			} 
-		);
-	
-	});
-	
-
+	 return bs({name:"status_id",type:"hidden",value: svn (d,"status_id")})
+        +   bs({name:"status_name",value: svn (d,"status_name")});
+            		 
+					   
 </pre>
+
+<h2 id="button">bs  &#9658; button : <span class="func"> function() <span></h2>
+<p >button</p>
+<pre class="brush: js;">   
+    //Example:
+	
+ 
+	
+	
+</pre>
+
 <h1 >form:</h1>
-<h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function( [input_object], [label_name] ) <span></h2>
-<p >check valid date</p>
+<h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function() <span></h2>
+<p >checkdate</p>
 <pre class="brush: js;">   
     //Example:
 	
@@ -74,20 +59,14 @@
       );
       return ischeckDate;
    }); 
+   
+   
 
 </pre>
 
-<h2 id="checkman">form  &#9658; checkMandatory : <span class="func"> function() <span></h2>
-<p >check mandatory</p>
-<pre class="brush: js;">   
-    //Example:
-	
-   $("form[name=frmList]").submit(function(){	
-		if( zsi.form.checkMandatory()!=true) return false;
-	}); 
-</pre>
-<h2 id="checknum">form  &#9658; checkNumber : <span class="func"> function(event) <span></h2>
-<p >check number</p>
+
+<h2 id="checknum">form  &#9658; checkNumber : <span class="func"> function() <span></h2>
+<p >checknum</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -95,30 +74,25 @@
 
        return zsi.form.checkNumber(event,'.,');
     });
+	
+	
 </pre>
 
-<h2 id="checknumf">form  &#9658; checkNumberFormat : <span class="func"> function(input_object) <span></h2>
-<p >check number format</p>
+<h2 id="checkMandatory">form  &#9658; checkMandatory : <span class="func"> function() <span></h2>
+<p>jQuery Validation: If one input is entered, others should become mandatory</p>
 <pre class="brush: js;">   
     //Example: 
 	
-    $("#p_hour,#p_amount").blur(function(){
-          var obj= this;
-        zsi.form.checkNumberFormat(this);
-
-   });
+   $("#btnSave").click(function () {
+		if( zsi.form.checkMandatory()!==true) return false;
+       
+     });
+	 
+	 
 </pre>
-<h2 id="isvalidnumf">form  &#9658; isValidNumberFormat : <span class="func"> function(input_object) <span></h2>
-<p >check if number format is valid.</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-	var _input = document.getElementById("p_amount");
-	zsi.form.isValidNumberFormat(_input);
 
-</pre>
-<h2 id="markman">form  &#9658; markMandatory : <span class="func"> function(json_data) <span></h2>
-<p >mark object(s) with mandatory</p>
+<h2 id="markMandatory">form  &#9658; markMandatory : <span class="func"> function() <span></h2>
+<p>mark object(s) with mandatory</p>
 
 <table >
 	<tr><th>JSON Data parameters</th><th>Description </th></tr>
@@ -133,273 +107,586 @@
 <pre class="brush: js;">   
     //Example: 
 	
-   $(document).ready(function(){
-       zsi.form.markMandatory({       
-         "groupNames":[ 
-               {"names" : 
-                     [  
-                      "p_tran_date"
-                     ,"p_direct_superior"
-                     ,"p_accident_date"
-                     ]
-               , "type":"S"
-               }             
-         ]      
-         ,"groupTitles":[ 
-               {"titles" :  
-                     [                       
-                      "Transaction Date"
-                     ,"Direct Supervisor"
-                     ,"Accident Date"
-                     ]
-               }
-
-         ]
-      });
- 
+	function markMandatory(){
+    zsi.form.markMandatory({       
+      "groupNames":[
+            {
+                 "names" : ["oem_vehicle_model_name"
+				 ,"model_year"
+				 ,"country_name"
+				 ,"market_id"
+				 ,"requested_date"
+				 ,"user_id"
+				 ,"is_active"
+				 ,"status_id"]
+                ,"type":"S"
+            }             
+          
+      ]      
+      ,"groupTitles":[ 
+             {"titles" :["Vehicle Model"
+			 ,"Model Year"
+			 ,"Origin Country"
+			 ,"Market"
+			 ,"Requested Date"
+			 ,"Requested By"
+			 ,"Active?"
+			 ,"Status"]}
+      ]
    });
-</pre>
-<h2 id="checkvalexist">json  &#9658; checkValueExist : <span class="func"> function($selector, table_name, table_field_name) <span></h2>
-<p >check value from the database and show a message if it is exist.</p>
-<pre class="brush: js;">   
-    //Example: 
-    zsi.json.checkValueExist("input[name=p_emp_name]","employee_table","emp_name");   
-</pre>
-
-<h2 id="groupbycoli">json  &#9658; groupByColumnIndex : <span class="func"> function(dhtmlx_json_data, column_index) <span></h2>
-<p >check value from the database and show a message if it is exist.</p>
-<pre class="brush: js;">   
-    //Example: 
-	
- function LoadData(){   
-   $.getJSON(&quot;getemployees_json?p_groupid=123&quot; 
-      ,function(data){
-         var newdata = zsi.json.groupByColumnIndex(data,0);
-         var jsonGrid = $(&quot;.gridReport&quot;);
-         jsonGrid.clearGrid();
-         for(var _group in newdata) {
-            var r = &quot;&quot;
-            r +=&quot;&lt;tr&gt;&quot;;
-              r +=&quot;&lt;th colspan='5' align='left'&gt;&quot;   + _group  + &quot; &lt;/th&gt;&quot;;
-            r +=&quot;&lt;/tr&gt;&quot;;  
-
-            r +=&quot;&lt;tr &gt;&quot;;
-            r +=&quot;&lt;th nowrap align='left'&gt;Last Name &lt;/th&gt;&quot;;
-            r +=&quot;&lt;th nowrap align='left'&gt;First Name&lt;/th&gt;&quot;;
-            r +=&quot;&lt;th nowrap align='left'&gt;Address&lt;/th&gt;&quot;;
-            r +=&quot;&lt;th nowrap align='left'&gt;Designation&lt;/th&gt;&quot;;
-            r +=&quot;&lt;/tr&gt;&quot;; 
-
-             var rowItem= newdata[_group]
-             var ctr=0;
-               $.each(rowItem,function(){  
-                  r +=&quot;&lt;tr&gt;&quot;;                 
-                       r +=&quot;&lt;td&gt; &quot;   +  this[1]  + &quot; &lt;/td&gt;&quot;;  
-                       r +=&quot;&lt;td&gt; &quot;   +  this[2]  + &quot; &lt;/td&gt;&quot;; 
-                       r +=&quot;&lt;td&gt; &quot;   +  this[3]  + &quot; &lt;/td&gt;&quot;;
-                       r +=&quot;&lt;td&gt; &quot;   +  this[4]  + &quot; &lt;/td&gt;&quot;; 
-                  r +=&quot;&lt;/tr&gt;&quot;;
-
-
-                  ctr++;
-               });
-               
-            jsonGrid.append(r);
-         }   
-
-
-      }
    
-   );
-
 }
 
-
 </pre>
 
-<h2 id="displayrp">page  &#9658; displayRecordPage : <span class="func"> function(page_no,page_rows,row_count) <span></h2>
-<p >display record page status</p>
+<h2 id="checkDate">form  &#9658; checkDate : <span class="func"> function() <span></h2>
+<p >checkDate</p>
 <pre class="brush: js;">   
     //Example: 
 	
-   $.getJSON("emp_info_json"
-      ,function(data){
-         l_page_rows= data.page_rows;
-         zsi.page.DisplayRecordPage(data.page_no,data.page_rows,data.row_count);
-      } 
-   );   
+   
+</pre>
+
+<h2 id="setCriteria">form  &#9658; setCriteria : <span class="func"> function() <span></h2>
+<p >setCriteria</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+   
+</pre>
+
+<h2 id="showAlert">json  &#9658; showAlert : <span class="func"> function() <span></h2>
+<p >showAlert</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    ,function(data){
+              if(data.isSuccess===true) zsi.form.showAlert("alert");      
+              
+        } 
+		
+</pre>
+
+<h2 id="displayLOV">form  &#9658; displayLOV : <span class="func"> function() <span></h2>
+<p >displayLOV</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+   
+</pre>
+
+<h2 id="deleteData">form  &#9658; deleteData : <span class="func"> function() <span></h2>
+<p >cdeleteData</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+ $("#btnDelete").click(function(){
+    zsi.form.deleteData({
+        code       : "ref-0032"
+        ,onComplete : function(data){
+            displayRecords();
+        }
+   });
+});   
+
 
 </pre>
 
-<h2 id="jsonsearch">search : <span class="func"> function(json_data) <span></h2>
-<p >This function is an auto-search JQuery AJAX based.</p>
-<table >
-	<tr><th>JSON Data parameters</th><th>Description </th></tr>
-	<tr><td>column_names </td><td>an array of column names.  </td></tr>
-	<tr><td>column_indexes </td><td>an array of column indexes. </td></tr>
-	<tr><td>input </td><td>a jquery selector name/id. </td></tr>
-	<tr><td>url </td><td>Location name of a json data. </td></tr>
-	<tr><td>parameter </td><td>Parameter name for url request. </td></tr>
-	<tr><td>onSelectedItem </td><td>a callback function fires when the item is selected. </td></tr>
-	<tr><td>onLoadComplete (optional)</td><td>a callback function fires when json data is successfully loaded.</td></tr>
-	<tr><td>onRequestFailed (optional)</td><td>a callback function fires when json data request is failed.</td></tr>
+<h2 id="getHighestZindex">zsi  &#9658; getHighestZindex : <span class="func"> function() <span></h2>
+<p >getHighestZindex</p>
+<pre class="brush: js;">   
+    //Example: 
 	
-</table>
+    var l_dp     = $('.datepicker');
+           l_dp.css("z-index",zsi.getHighestZindex() + 1);
+		   
+		   
 
+</pre>
+
+<h2 id="getOddEven">zsi  &#9658; getOddEven : <span class="func"> function() <span></h2>
+<p >getOddEven</p>
 <pre class="brush: js;">   
     //Example 1: 
-	$(document).ready(function(){
-		  new zsi.search({
-		   column_names : ["Id","Employee Name"] 
-		  ,column_indexes : [0,43] 
-		  ,input:"input[name=p_empl_id_no]"
-		  ,url :"employee_search_json"
-		  ,parameter: "p_empl_id_no"
-		  ,onSelectedItem: 
-			 function(currentObject,data,i){            
-				currentObject.value=data[0];
-				var td = currentObject.parentNode;
-				$("#p_empl_name").val(unescape(data[43])); 
-			 }
-		  });    
-		  
- 
-	});
+	
+		var tr ="&lt;tr class='"&nbsp; + zsi.getOddEven() +"'&gt;"/;
+                        
+	//Example 2:
+	
+	 var h ="";
+                h += "&lt;tr class='"&nbsp; + zsi.getOddEven() + "'&gt;";
+					h += "&lt;td&gt;" +&nbsp; bs({name:"cb",type:"checkbox"}) +&nbsp; bs({name:"cb",type:"hidden",value: subDir + this }) + "&lt;/td&gt;";
+					h += "&lt;td&gt;&lt;a target=\"_blank\" " + _mouseevent + " href=\"" + base_url +&nbsp; "file/viewImage?fileName=" + subDir +&nbsp; this+ "\"&gt;" + this + "&lt;/a&gt;&lt;/td&gt;";
+                h += "&lt;/tr&gt;";
 
-
-    //Example 2: 
-	$(document).ready(function(){
-		  new zsi.search({
-		   column_names : ["Id","Employee Name"] 
-		  ,column_indexes : [0,43] 
-		  ,input:"input[name=p_empl_id_no]"
-		  ,url :"employee_search_json"
-		  ,parameter: "p_empl_id_no"
-		  ,onSelectedItem: 
-			 function(currentObject,data,i){            
-				currentObject.value=data[0];
-				var td = currentObject.parentNode;
-				$("#p_empl_name").val(unescape(data[43])); 
-			 }
-		  ,onLoadComplete : 
-			 function(data){            
-				console.log("load complete");
-				console.log(data);
-			 }
-		  ,onRequestFailed  : 
-			 function(){            
-				console.log("request failed");
-			 }
-			 
-		  });    
-		  
- 
-	});	
+						
 </pre>
 
-<h2 id="getcheckboxval">table &#9658;  getCheckBoxesValues : <span class="func"> function($selector, pre_value, delimited_character) <span></h2>
-<p >get checkboxes value and formatted into delimited strings. </p>
+<h2 id="getTableLayoutsObjects">zsi &#9658;  getTableLayoutsObjects : <span class="func"> function($selector, pre_value, delimited_character) <span></h2>
+<p >getTableLayoutsObjects</p>
 <pre class="brush: js;">   
     //Example: 
 	
-  //[3-parameters]:
-  var x= zsi.table.getCheckBoxesValues("input[name=p_cb]:checked","p_del_ds=","&");
-   result: p_del_ds=1031&p_del_ds=1032&p_del_ds=1027
-
-  //[1-parameters]:
-  var x= zsi.table.getCheckBoxesValues("input[name=p_cb]:checked");
-  result:  ["1031", "1027"]
-
-
-
-</pre>
-
-<h2 id="setcheckbox">table &#9658;  setCheckBox : <span class="func"> function(checkbox_object, value_number) <span></h2>
-<p >set checkbox with value </p>
-<pre class="brush: js;">   
-    //Example: 
-	
-   &lt;tr &gt;
-      &lt;td&gt;
-         &lt;input type=&quot;checkbox&quot; name=&quot;p_cb&quot; onclick=&quot;zsi.table.setCheckBox(this,123);&quot;&gt;
-         &lt;input type=&quot;hidden&quot; name=&quot;p_del_hidden&quot; value=&quot;&quot;&gt;
-      &lt;/td&gt;
-   &lt;/tr&gt;
-
-</pre>
-
-<h2 id="getqval">url &#9658;  getQueryValue : <span class="func"> function(source_string, key_string) <span></h2>
-<p >get query string value </p>
-<pre class="brush: js;">   
-    //Example: 
-	
-	var _result = zsi.url.getQueryValue("p_by_dept=33&p_by_group=8&p_rows=919&p_page_no=4","p_rows");	
-	console.log(_result);
-	//result:  919
-	 
-</pre>
-
-<h2 id="remqitem">url &#9658;  removeQueryItem : <span class="func"> function(source_string, key_string) <span></h2>
-<p >remove query item </p>
-<pre class="brush: js;">   
-    //Example: 
-		var _result = zsi.url.removeQueryItem("p_by_dept=33&p_by_group=8&p_rows=919&p_page_no=4","p_by_group");	
-		console.log(_result);
-	 //result:  p_by_dept=33&p_rows=919&p_page_no=4
-	 
-</pre>
-
-
-<h2 id="_strvalexist">Common Functions &#9658;  _strValueExist : <span class="func"> function(source_string, key_string) <span></h2>
-<p >remove query item </p>
-<pre class="brush: js;">   
-    //Example: 
-		var _str ="Lorem Ipsum has been the industry's standard dummy text";
-		var _result = zsi._strValueExist(_str,"has");	
-		console.log(_result);
-	 //result:  true
-	 
-</pre>
-
-
-<h2 id="j_clearsel">JQuery Extended Functions &#9658;  $.fn.clearSelect : <span class="func"> function(source_string, key_string) <span></h2>
-<p >clear items in select control</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-		 $("#p_select_box").clearSelect(); //clear all items in select box with an Id of p_select_box
+		 
+		 zsi.getTableLayoutsObjects("users",function(params){
 			
-		 //or 
-		 
-		 $("select[name=p_select_box]").clearSelect();  //clear all items in all select box with the name of p_select_box
-		 
-	 
+		 });
+	
+	
+
 </pre>
 
-<h2 id="j_fillsel">JQuery Extended Functions &#9658;  $.fn.fillSelect : <span class="func"> function(dhtmlx_data,selected_value,is_required,callback_function) <span></h2>
-<p >Fill Select object with the list of values from specified url request</p>
+<h2 id="getUrlParamValue">zsi &#9658;  getUrlParamValue : <span class="func"> function() <span></h2>
+<p >getUrlParamValue </p>
 <pre class="brush: js;">   
     //Example: 
 	
-   $.getJSON("zsi_lib.select_json", function( data ) {   
-         $("select[name=p_select_box").fillSelect(data,123,"N",onLoadComplete);
+  function getProjectAccess(callBack){
+    if(typeof projectId === ud) projectId = zsi.getUrlParamValue("projectId");
+    if(projectId){
+        $.get(
+             base_url + "sql/exec?p=user_project_access " + projectId
+            ,function(data){
+                projectAccess = data.rows[0];
+                if(typeof callBack !== ud) {
+                    callBack(projectAccess);
+                }
+                return;
+            }
+        );
+    }
+    else
+        if(typeof callBack !== ud)  callBack();
+}
+
+</pre>
+
+<h2 id="init">zsi &#9658;  init : <span class="func"> function() <span></h2>
+<p >init</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	zsi.init({
+      baseURL : base_url
+     ,errorUpdateURL    :  base_url + "sql/logerror"
+     ,sqlConsoleName    :  "runsql"
+     ,excludeAjaxWatch  :  ["checkDataExist","searchdata"]
+     ,getDataURL        :  base_url + "data/getRecords"
+
+	 });
+	 
+</pre>
+
+<h2 id="initDatePicker">zsi &#9658;  initDatePicker : <span class="func"> function() <span></h2>
+<p >initDatePicker</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		zsi.initDatePicker  = function(){
+		   var inputDate =$('input[id*=date]').not("input[type='hidden']");
+		   inputDate.attr("placeholder","mm/dd/yyyy");
+		   inputDate.keyup(function(){      
+         if(this.value.length==2 || this.value.length==5 ) this.value += "/";
    });
    
-   function onLoadComplete(data){
-	console.log("data has been loaded");
+   
+	 
+</pre>
+
+
+<h2 id="groupByColumnIndex">json &#9658;  groupByColumnIndex : <span class="func"> function() <span></h2>
+<p >groupByColumnIndex</p>
+<pre class="brush: js;">   
+    //Example: 
+		
+		
+		
+		
+	 
+</pre>
+
+
+<h2 id="clearPaging">page &#9658;  clearPaging : <span class="func"> function() <span></h2>
+<p >clearPaging</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		  var rownum=0;
+				zsi.page.clearPaging();
+		 
+	 
+</pre>
+
+<h2 id="DisplayRecordPage">page &#9658; DisplayRecordPage: <span class="func"> function() <span></h2>
+<p >DisplayRecordPage</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+  
+  
+  
    }
 	 
 </pre>
 
-<h2 id="j_cleargrid">JQuery Extended Functions &#9658;  $.fn.clearGrid : <span class="func"> function() <span></h2>
-<p >remove all tr elements under tbody element.</p>
+<h2 id="getCheckBoxesValues">table &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
+<p >getCheckBoxesValues</p>
 <pre class="brush: js;">   
     //Example: 
 	
-     $("#table").clearGrid();
+    
     
 	 
 </pre>
+
+<h2 id="setCheckBox">table &#9658; setCheckBox : <span class="func"> function() <span></h2>
+<p >setCheckBox</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="sort">table &#9658; sort : <span class="func"> function() <span></h2>
+<p >sort</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="setValIfNull">zsi &#9658; setValIfNull : <span class="func"> function() <span></h2>
+<p >setValIfNull</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		var svn =  zsi.setValIfNull;
+    
+	  return bs({name:"category_id",type:"hidden",value: svn (d,"category_id")})
+	  
+    
+	 
+</pre>
+
+<h2 id="ShowHideProgressWindow">zsi &#9658; ShowHideProgressWindow : <span class="func"> function() <span></h2>
+<p >ShowHideProgressWindow</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	
+	     
+    
+    
+	 
+</pre>
+
+<h2 id="ShowErrorWindow">zsi &#9658; ShowErrorWindow : <span class="func"> function() <span></h2>
+<p >ShowErrorWindow</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="initInputTypesAndFormats">zsi &#9658; initInputTypesAndFormats : <span class="func"> function() <span></h2>
+<p >initInputTypesAndFormats</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		zsi.initInputTypesAndFormats();
+    
+	 
+</pre>
+
+<h2 id="strExist">zsi &#9658; strExist : <span class="func"> function() <span></h2>
+<p >strExist</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="strExist">zsi &#9658; strExist : <span class="func"> function() <span></h2>
+<p >strExist</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="getQueryValue">url &#9658; getQueryValue : <span class="func"> function() <span></h2>
+<p >getQueryValue</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="removeQueryItem">url &#9658; removeQueryItem : <span class="func"> function() <span></h2>
+<p >removeQueryItem</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="addClickHighlight">JQuery Extended Functions &#9658; addClickHighlight : <span class="func"> function() <span></h2>
+<p >addClickHighlight</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     tbl.addClickHighlight();
+    
+	 
+</pre>
+
+<h2 id="center">JQuery Extended Functions &#9658; center : <span class="func"> function() <span></h2>
+<p >center</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="centerWidth">JQuery Extended Functions &#9658; centerWidth : <span class="func"> function() <span></h2>
+<p >centerWidth</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func"> function() <span></h2>
+<p >checkValueExists</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("input[name='oem_name'].new-entry").checkValueExists({code:"ref-0004",colName:"oem_name"});
+    
+	 
+</pre>
+
+<h2 id="clearGrid">JQuery Extended Functions &#9658; clearGrid : <span class="func"> function() <span></h2>
+<p >clearGrid</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("#grid").clearGrid();
+    
+	 
+</pre>
+
+<h2 id="createZoomCtrl">JQuery Extended Functions &#9658; createZoomCtrl : <span class="func"> function() <span></h2>
+<p >createZoomCtrl</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    .find(".zoomPanel").createZoomCtrl();
+    
+	 
+</pre>
+
+<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function() <span></h2>
+<p >dataBind</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("select[name='property_id']").dataBind( base_url + "selectoption/code/property");
+    
+	 
+</pre>
+
+<h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function() <span></h2>
+<p >deleteData</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	 zsi.form.deleteData({});
+    
+    
+	 
+</pre>
+
+<h2 id="expandCollapse">JQuery Extended Functions &#9658; expandCollapse : <span class="func"> function() <span></h2>
+<p >expandCollapse</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("a[name='aSpecsPropertyAtt']").expandCollapse({});
+    
+	 
+</pre>
+
+<h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function() <span></h2>
+<p >fillSelect</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("select[name='menu_type']").fillSelect({
+                       data             : menu_types
+                      ,selectedValue    : "M"
+                });
+    
+	 
+</pre>
+
+<h2 id="getCheckBoxesValues">JQuery Extended Functions &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
+<p >getCheckBoxesValues</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     var _files = $("input[name='cb']:checked").getCheckBoxesValues();
+    
+	 
+</pre>
+
+<h2 id="jsonSubmit">JQuery Extended Functions &#9658; jsonSubmit : <span class="func"> function() <span></h2>
+<p >jsonSubmit</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("#frm").jsonSubmit({
+              url: base_url + "update"
+	 });
+    
+	 
+</pre>
+
+<h2 id="loadData">JQuery Extended Functions &#9658; loadData : <span class="func"> function() <span></h2>
+<p >loadData</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+       $("#grid").loadData({      
+        url   : base_url + "sql/exec?p=attributes_sel"
+     }); 
+	 
+</pre>
+
+<h2 id="loadData2">JQuery Extended Functions &#9658; loadData2 : <span class="func"> function() <span></h2>
+<p >loadData2</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("#grid2").dataBindGrid({});
+    
+	 
+</pre>
+
+<h2 id="dataBindGrid">JQuery Extended Functions &#9658; dataBindGrid : <span class="func"> function() <span></h2>
+<p >dataBindGrid</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="loadMonths">JQuery Extended Functions &#9658; loadMonths : <span class="func"> function() <span></h2>
+<p >loadMonths</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="serializeExclude">JQuery Extended Functions &#9658; serializeExclude : <span class="func"> function() <span></h2>
+<p >serializeExclude</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="setEventOnTRClickForSelection">JQuery Extended Functions &#9658; setEventOnTRClickForSelection : <span class="func"> function() <span></h2>
+<p >setEventOnTRClickForSelection</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("#modelyearGrid").setEventOnTRClickForSelection();
+    
+	 
+</pre>
+
+<h2 id="setCheckEvent">JQuery Extended Functions &#9658; setCheckEvent : <span class="func"> function() <span></h2>
+<p >setCheckEvent</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+      var jCBName = "#modelyearGrid input[name='cb']";
+            $("#cbFilter1").setCheckEvent(jCBName);
+    
+	 
+</pre>
+
+<h2 id="setUniqueOptions">JQuery Extended Functions &#9658; setUniqueOptions : <span class="func"> function() <span></h2>
+<p >setUniqueOptions</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="showPopup">JQuery Extended Functions &#9658; showPopup : <span class="func"> function() <span></h2>
+<p >showPopup</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("#reports").showPopup({
+             title : bName
+            ,body  : body
+        });
+    
+	 
+</pre>
+
+<h2 id="toJSON">JQuery Extended Functions &#9658; toJSON : <span class="func"> function() <span></h2>
+<p >toJSON</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="toJSON2">JQuery Extended Functions &#9658; toJSON2 : <span class="func"> function() <span></h2>
+<p >toJSON2</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+
+
 </div>
 </body>
 </html>
