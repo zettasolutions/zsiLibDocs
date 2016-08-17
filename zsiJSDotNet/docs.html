@@ -17,20 +17,20 @@
 
 <a name="top"></a>
 <h2 id="ctrl">bs  &#9658;  ctrl : <span class="func"> function()</span> </h2>
-<p >ctrl</p>
+<p >Controller</p>
 <pre class="brush: js;">   
     //Example 1:
 	
-	var bs                 = zsi.bs.ctrl
-	
-	 return bs({name:"status_id",type:"hidden",value: svn (d,"status_id")})
-        +   bs({name:"status_name",value: svn (d,"status_name")});
-            		 
-					   
+				var bs                 = zsi.bs.ctrl
+				
+				 bs({name:"status_id",type:"hidden",value: svn (d,"status_id")})
+				 bs({name:"status_name",value: svn (d,"status_name")});
+								 
+								   
 </pre>
 
 <h2 id="button">bs  &#9658; button : <span class="func"> function() <span></h2>
-<p >button</p>
+<p >Button</p>
 <pre class="brush: js;">   
     //Example:
 	
@@ -41,25 +41,25 @@
 
 <h1 >form:</h1>
 <h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function() <span></h2>
-<p >checkdate</p>
+<p >Check date</p>
 <pre class="brush: js;">   
     //Example:
 	
-   $("form[name=frmList]").submit(function(){
-      var ischeckDate = false;
-      ischeckDate = zsi.form.checkDate(
-                  [   "p_tran_date"
-                     ,"p_accident_date"
-                  ]
-                  ,
-                  [
-                     "Transaction Date"
-                     ,"Accident Date"
-                  ]
-      );
-      return ischeckDate;
-   }); 
-   
+			   $("form[name=frmList]").submit(function(){
+				  var ischeckDate = false;
+				  ischeckDate = zsi.form.checkDate(
+							  [   "p_tran_date"
+								 ,"p_accident_date"
+							  ]
+							  ,
+							  [
+								 "Transaction Date"
+								 ,"Accident Date"
+							  ]
+				  );
+				  return ischeckDate;
+			   }); 
+			   
    
 
 </pre>
@@ -70,11 +70,9 @@
 <pre class="brush: js;">   
     //Example: 
 	
-	$("#p_hour,#p_amount").keypress(function(event){
-
-       return zsi.form.checkNumber(event,'.,');
-    });
-	
+			
+			   return zsi.form.checkNumber(event,'.,');
+				
 	
 </pre>
 
@@ -83,11 +81,11 @@
 <pre class="brush: js;">   
     //Example: 
 	
-   $("#btnSave").click(function () {
-		if( zsi.form.checkMandatory()!==true) return false;
-       
-     });
-	 
+			   $("#btnSave").click(function () {
+					if( zsi.form.checkMandatory()!==true) return false;
+				   
+				 });
+				 
 	 
 </pre>
 
@@ -107,45 +105,39 @@
 <pre class="brush: js;">   
     //Example: 
 	
-	function markMandatory(){
-    zsi.form.markMandatory({       
-      "groupNames":[
-            {
-                 "names" : ["oem_vehicle_model_name"
-				 ,"model_year"
-				 ,"country_name"
-				 ,"market_id"
-				 ,"requested_date"
-				 ,"user_id"
-				 ,"is_active"
-				 ,"status_id"]
-                ,"type":"S"
-            }             
-          
-      ]      
-      ,"groupTitles":[ 
-             {"titles" :["Vehicle Model"
-			 ,"Model Year"
-			 ,"Origin Country"
-			 ,"Market"
-			 ,"Requested Date"
-			 ,"Requested By"
-			 ,"Active?"
-			 ,"Status"]}
-      ]
-   });
-   
-}
+			function markMandatory(){
+					zsi.form.markMandatory({       
+					  "groupNames":[
+							{
+								 "names" : [
+										"oem_vehicle_model_name"
+										,"model_year"
+										 ,"country_name"
+										 ,"market_id"
+										 ,"requested_date"
+										 ,"user_id"
+										 ,"is_active"
+										 ,"status_id"]
+										,"type":"S"
+							}
+						  
+					  ]      
+						 ,"groupTitles":[ 
+						 {"titles" :["Vehicle Model"
+						 ,"Model Year"
+						 ,"Origin Country"
+						 ,"Market"
+						 ,"Requested Date"
+						 ,"Requested By"
+						 ,"Active?"
+						 ,"Status"]}
+				  ]
+			   });
+			   
+			}
 
 </pre>
 
-<h2 id="checkDate">form  &#9658; checkDate : <span class="func"> function() <span></h2>
-<p >checkDate</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-   
-</pre>
 
 <h2 id="setCriteria">form  &#9658; setCriteria : <span class="func"> function() <span></h2>
 <p >setCriteria</p>
@@ -156,14 +148,14 @@
 </pre>
 
 <h2 id="showAlert">json  &#9658; showAlert : <span class="func"> function() <span></h2>
-<p >showAlert</p>
+<p >show alert</p>
 <pre class="brush: js;">   
     //Example: 
 	
-    ,function(data){
-              if(data.isSuccess===true) zsi.form.showAlert("alert");      
-              
-        } 
+			,function(data){
+					  if(data.isSuccess===true) zsi.form.showAlert("alert");      
+				  
+			} 
 		
 </pre>
 
@@ -175,31 +167,15 @@
    
 </pre>
 
-<h2 id="deleteData">form  &#9658; deleteData : <span class="func"> function() <span></h2>
-<p >cdeleteData</p>
-<pre class="brush: js;">   
-    //Example: 
-	
- $("#btnDelete").click(function(){
-    zsi.form.deleteData({
-        code       : "ref-0032"
-        ,onComplete : function(data){
-            displayRecords();
-        }
-   });
-});   
-
-
-</pre>
 
 <h2 id="getHighestZindex">zsi  &#9658; getHighestZindex : <span class="func"> function() <span></h2>
 <p >getHighestZindex</p>
 <pre class="brush: js;">   
     //Example: 
 	
-    var l_dp     = $('.datepicker');
-           l_dp.css("z-index",zsi.getHighestZindex() + 1);
-		   
+			var l_dp     = $('.datepicker');
+				   l_dp.css("z-index",zsi.getHighestZindex() + 1);
+				   
 		   
 
 </pre>
@@ -209,15 +185,15 @@
 <pre class="brush: js;">   
     //Example 1: 
 	
-		var tr ="&lt;tr class='"&nbsp; + zsi.getOddEven() +"'&gt;"/;
-                        
-	//Example 2:
-	
-	 var h ="";
-                h += "&lt;tr class='"&nbsp; + zsi.getOddEven() + "'&gt;";
-					h += "&lt;td&gt;" +&nbsp; bs({name:"cb",type:"checkbox"}) +&nbsp; bs({name:"cb",type:"hidden",value: subDir + this }) + "&lt;/td&gt;";
-					h += "&lt;td&gt;&lt;a target=\"_blank\" " + _mouseevent + " href=\"" + base_url +&nbsp; "file/viewImage?fileName=" + subDir +&nbsp; this+ "\"&gt;" + this + "&lt;/a&gt;&lt;/td&gt;";
-                h += "&lt;/tr&gt;";
+				var tr ="&lt;tr class='"&nbsp; + zsi.getOddEven() +"'&gt;"/;
+								
+			//Example 2:
+			
+			 var h ="";
+						h += "&lt;tr class='"&nbsp; + zsi.getOddEven() + "'&gt;";
+							h += "&lt;td&gt;" +&nbsp; bs({name:"cb",type:"checkbox"}) +&nbsp; bs({name:"cb",type:"hidden",value: subDir + this }) + "&lt;/td&gt;";
+							h += "&lt;td&gt;&lt;a target=\"_blank\" " + _mouseevent + " href=\"" + base_url +&nbsp; "file/viewImage?fileName=" + subDir +&nbsp; this+ "\"&gt;" + this + "&lt;/a&gt;&lt;/td&gt;";
+						h += "&lt;/tr&gt;";
 
 						
 </pre>
@@ -241,23 +217,23 @@
 <pre class="brush: js;">   
     //Example: 
 	
-  function getProjectAccess(callBack){
-    if(typeof projectId === ud) projectId = zsi.getUrlParamValue("projectId");
-    if(projectId){
-        $.get(
-             base_url + "sql/exec?p=user_project_access " + projectId
-            ,function(data){
-                projectAccess = data.rows[0];
-                if(typeof callBack !== ud) {
-                    callBack(projectAccess);
-                }
-                return;
-            }
-        );
-    }
-    else
-        if(typeof callBack !== ud)  callBack();
-}
+				  function getProjectAccess(callBack){
+					if(typeof projectId === ud) projectId = zsi.getUrlParamValue("projectId");
+					if(projectId){
+						$.get(
+							 base_url + "sql/exec?p=user_project_access " + projectId
+							,function(data){
+								projectAccess = data.rows[0];
+								if(typeof callBack !== ud) {
+									callBack(projectAccess);
+								}
+								return;
+							}
+						);
+					}
+					else
+						if(typeof callBack !== ud)  callBack();
+				}
 
 </pre>
 
@@ -266,28 +242,27 @@
 <pre class="brush: js;">   
     //Example: 
 	
-	zsi.init({
-      baseURL : base_url
-     ,errorUpdateURL    :  base_url + "sql/logerror"
-     ,sqlConsoleName    :  "runsql"
-     ,excludeAjaxWatch  :  ["checkDataExist","searchdata"]
-     ,getDataURL        :  base_url + "data/getRecords"
-
-	 });
+			zsi.init	({
+					  baseURL : base_url
+					 ,errorUpdateURL    :  base_url + "sql/logerror"
+					 ,sqlConsoleName    :  "runsql"
+					 ,excludeAjaxWatch  :  ["checkDataExist","searchdata"]
+					 ,getDataURL        :  base_url + "data/getRecords"
+			 });
 	 
 </pre>
 
 <h2 id="initDatePicker">zsi &#9658;  initDatePicker : <span class="func"> function() <span></h2>
-<p >initDatePicker</p>
+<p >open an interactive calendar</p>
 <pre class="brush: js;">   
     //Example: 
 	
-		zsi.initDatePicker  = function(){
-		   var inputDate =$('input[id*=date]').not("input[type='hidden']");
-		   inputDate.attr("placeholder","mm/dd/yyyy");
-		   inputDate.keyup(function(){      
-         if(this.value.length==2 || this.value.length==5 ) this.value += "/";
-   });
+			zsi.initDatePicker  = function(){
+				   var inputDate =$('input[id*=date]').not("input[type='hidden']");
+				   inputDate.attr("placeholder","mm/dd/yyyy");
+				   inputDate.keyup(function(){      
+				 if(this.value.length==2 || this.value.length==5 ) this.value += "/";
+		   });
    
    
 	 
@@ -334,6 +309,7 @@
 <pre class="brush: js;">   
     //Example: 
 	
+	 var _ti =  zsi.table.getCheckBoxesValues("#grid input[name='cb']:checked");
     
     
 	 
@@ -360,13 +336,13 @@
 </pre>
 
 <h2 id="setValIfNull">zsi &#9658; setValIfNull : <span class="func"> function() <span></h2>
-<p >setValIfNull</p>
+<p >Set the specific value if it is Null</p>
 <pre class="brush: js;">   
     //Example: 
 	
 		var svn =  zsi.setValIfNull;
     
-	  return bs({name:"category_id",type:"hidden",value: svn (d,"category_id")})
+	  bs({name:"category_id",type:"hidden",value: svn (d,"category_id")})
 	  
     
 	 
@@ -414,15 +390,6 @@
 	 
 </pre>
 
-<h2 id="strExist">zsi &#9658; strExist : <span class="func"> function() <span></h2>
-<p >strExist</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
 
 <h2 id="getQueryValue">url &#9658; getQueryValue : <span class="func"> function() <span></h2>
 <p >getQueryValue</p>
@@ -475,7 +442,7 @@
 </pre>
 
 <h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func"> function() <span></h2>
-<p >checkValueExists</p>
+<p >check the specific Value if it is already existed  </p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -485,7 +452,7 @@
 </pre>
 
 <h2 id="clearGrid">JQuery Extended Functions &#9658; clearGrid : <span class="func"> function() <span></h2>
-<p >clearGrid</p>
+<p >Clear all data on grid</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -495,7 +462,7 @@
 </pre>
 
 <h2 id="createZoomCtrl">JQuery Extended Functions &#9658; createZoomCtrl : <span class="func"> function() <span></h2>
-<p >createZoomCtrl</p>
+<p >Create a function to zoom in (+) and (-) out on an image </p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -505,17 +472,19 @@
 </pre>
 
 <h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function() <span></h2>
-<p >dataBind</p>
+<p >function for select or dropdown items</p>
 <pre class="brush: js;">   
     //Example: 
 	
-    $("select[name='property_id']").dataBind( base_url + "selectoption/code/property");
+    ,onComplete: function(){
+             $("select[name='pmenu_id']").dataBind("menus");
+             $("select[name='page_id']").dataBind( "pages");
     
 	 
 </pre>
 
 <h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function() <span></h2>
-<p >deleteData</p>
+<p >delete specific or selected data</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -576,7 +545,7 @@
     //Example: 
 	
        $("#grid").loadData({      
-        url   : base_url + "sql/exec?p=attributes_sel"
+        url : procURL + "plants_sel @is_active='N'" 
      }); 
 	 
 </pre>
@@ -586,20 +555,12 @@
 <pre class="brush: js;">   
     //Example: 
 	
-     $("#grid2").dataBindGrid({});
+ 
     
 	 
 </pre>
 
-<h2 id="dataBindGrid">JQuery Extended Functions &#9658; dataBindGrid : <span class="func"> function() <span></h2>
-<p >dataBindGrid</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
+
 
 <h2 id="loadMonths">JQuery Extended Functions &#9658; loadMonths : <span class="func"> function() <span></h2>
 <p >loadMonths</p>
@@ -633,6 +594,17 @@
 
 <h2 id="setCheckEvent">JQuery Extended Functions &#9658; setCheckEvent : <span class="func"> function() <span></h2>
 <p >setCheckEvent</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+      var jCBName = "#modelyearGrid input[name='cb']";
+            $("#cbFilter1").setCheckEvent(jCBName);
+    
+	 
+</pre>
+
+<h2 id="setIdIfChecked">JQuery Extended Functions &#9658; setIdIfChecked : <span class="func"> function() <span></h2>
+<p >setIdIfChecked</p>
 <pre class="brush: js;">   
     //Example: 
 	
