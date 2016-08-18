@@ -471,6 +471,110 @@
 	 
 </pre>
 
+<h2 id="disableButton">JQuery Extended Functions &#9658; disableButton : <span class="func"> function() <span></h2>
+<p >Disable Button / Remove mouse pointer </p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    var _chkTLen = checkableTree.treeview('getChecked').length;
+    var _cbLen  = $("#vehicleModelGrid").find("input[name='cb']:checked").length;
+ 	
+    if(_chkTLen > 0 && _cbLen > 1){
+        $("#btnReport").css("pointer-events","inherit")      
+        .css("cursor","")      
+        .css("color","#fff"); 
+    }
+    else{
+        $("#btnReport").css("pointer-events","none")      
+        .css("cursor","default")   
+        .css("color","grey");       
+            
+    }
+    
+	 
+</pre>
+
+<h2 id="mapFunction">JQuery Extended Functions &#9658; mapFunction : <span class="func"> function() <span></h2>
+<p >Map function</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+program_ids = $("#tblPPrograms" ).find( ":checkbox:checked" ).map(function() { 
+                  return this.value
+                  ;}).get().join("|"); 
+    
+	 
+</pre>
+
+<h2 id="multipleSelect">JQuery Extended Functions &#9658; multipleSelect : <span class="func"> function() <span></h2>
+<p >Multiple Select Concatenation</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    program_ids     = ($program_id.val() ? $program_id.val().toString().replace(/,/g, "|") : "");
+    
+	 
+</pre>
+
+<h2 id="saveNotUsingTT">JQuery Extended Functions &#9658; saveNotUsingTT : <span class="func"> function() <span></h2>
+<p >Save without TT</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+$("#btnSaveNotes").click(function (){
+    $.post(
+         base_url + "sql/exec?p=project_menu_notes_upd" 
+         + " @menu_id=" + leftMenuId 
+         + ",@notes='" + escape( $("#notes").find("textarea").val() )  + "'"
+         + ",@project_id=" + projectId
+         
+        ,function(data){
+            displayNotes();
+            zsi.form.showAlert("alert");
+    });        
+}); 
+    
+	 
+</pre>
+
+<h2 id="selectOptionUsingSEL">JQuery Extended Functions &#9658; selectOptionUsingSEL : <span class="func"> function() <span></h2>
+<p >Select Option using Sel</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+   $program_id.change(function(){
+        if(this.value){
+            var val = $program_id.val();
+            program_ids = (val ? val.toString(): "");
+            $model_year.dataBind({ url : execURL + "model_years_sel @program_ids='" + program_ids + "'"
+                ,required:true 
+                ,text  : "model_year"
+                ,value : "model_year"
+            });
+        }
+    });
+   
+	 
+</pre>
+
+<h2 id="tabIndexSwitch">JQuery Extended Functions &#9658; tabIndexSwitch : <span class="func"> function() <span></h2>
+<p >Switch Tab Index</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+ var $li = $("#tabsArea ul li.active");
+    var i = $li.index();
+    switch(i){
+        case 0: submitPMYs();break;
+        case 1: submitPHF();break;
+        case 2: submitProgramDREs();break;
+        case 3: submitOPM();break;
+        default:break;
+    }
+   
+	 
+</pre>
+
 <h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function() <span></h2>
 <p >function for select or dropdown items</p>
 <pre class="brush: js;">   
