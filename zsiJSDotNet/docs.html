@@ -610,40 +610,62 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function() <span></h2>
+<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function( {} or Code) <span></h2>
 <p >function for select or dropdown items</p>
 <pre class="brush: js;">   
-    //Example: 
-	
-    ,onComplete: function(){
-             $("select[name='pmenu_id']").dataBind("menus");
-             $("select[name='page_id']").dataBind( "pages");
-    
+    //Example1: 
+
+	 $("select[name='category_id']").dataBind("categories");   
+
+	//Example2: 
+
+	 $("select[name='category_id']").dataBind({ url 
+		 url : procURL + "categories_sel?category_id=123"
+		,text : "category_name"
+		,value: "category_id"
+		//,selectedValue  :  123
+		//,required : true /false
+		//,isUniqueOptions : : true /false
+		//onComplete : function(){}		
+	 });   
 	 
 </pre>
 
-<h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function() <span></h2>
-<p >delete specific or selected data</p>
+<h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function({}) <span></h2>
+<p >Delete specific or selected data</p>
 <pre class="brush: js;">   
     //Example: 
 	
-	 zsi.form.deleteData({});
-    
-    
+    zsi.form.deleteData({
+         code       : "ref-0001"
+        ,onComplete : function(data){
+                        displayRecords("");
+                      }
+    });   
 	 
 </pre>
 
-<h2 id="expandCollapse">JQuery Extended Functions &#9658; expandCollapse : <span class="func"> function() <span></h2>
+<h2 id="expandCollapse">JQuery Extended Functions &#9658; expandCollapse : <span class="func"> function({}) <span></h2>
 <p >expandCollapse</p>
 <pre class="brush: js;">   
     //Example: 
 	
-    $("a[name='aSpecsPropertyAtt']").expandCollapse({});
+	$("a[name='aSpecsPropertyAtt']").expandCollapse({
+		onInit  : function(obj){
+			attrId = $(obj).attr("attribute_id");
+			return "<div id='data" + attrId + "'> </div>";
+		}
+	   ,onAfterInit: function(){
+			displayDetail(attrId);
+			
+		}
+  
+	});
     
 	 
 </pre>
 
-<h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function() <span></h2>
+<h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function({}) <span></h2>
 <p >fillSelect</p>
 <pre class="brush: js;">   
     //Example: 
@@ -666,7 +688,7 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="jsonSubmit">JQuery Extended Functions &#9658; jsonSubmit : <span class="func"> function() <span></h2>
+<h2 id="jsonSubmit">JQuery Extended Functions &#9658; jsonSubmit : <span class="func"> function({}) <span></h2>
 <p >jsonSubmit</p>
 <pre class="brush: js;">   
     //Example: 
@@ -678,7 +700,7 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="loadData">JQuery Extended Functions &#9658; loadData : <span class="func"> function() <span></h2>
+<h2 id="loadData">JQuery Extended Functions &#9658; loadData : <span class="func"> function({}) <span></h2>
 <p >loadData</p>
 <pre class="brush: js;">   
     //Example: 
@@ -689,7 +711,7 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="loadData2">JQuery Extended Functions &#9658; loadData2 : <span class="func"> function() <span></h2>
+<h2 id="loadData2">JQuery Extended Functions &#9658; loadData2 : <span class="func"> function({}) <span></h2>
 <p >loadData2</p>
 <pre class="brush: js;">   
     //Example: 
@@ -699,26 +721,11 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-
-
-<h2 id="loadMonths">JQuery Extended Functions &#9658; loadMonths : <span class="func"> function() <span></h2>
-<p >loadMonths</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
-
-<h2 id="serializeExclude">JQuery Extended Functions &#9658; serializeExclude : <span class="func"> function() <span></h2>
+<h2 id="serializeExclude">JQuery Extended Functions &#9658; serializeExclude : <span class="func"> function(arrayNames) <span></h2>
 <p >serializeExclude</p>
 <pre class="brush: js;">   
     //Example: 
-	
-    
-    
-	 
+	 $("#myform").serializeExclude(["field1_id","field2_id","field3_id"])
 </pre>
 
 <h2 id="setEventOnTRClickForSelection">JQuery Extended Functions &#9658; setEventOnTRClickForSelection : <span class="func"> function() <span></h2>
@@ -731,7 +738,7 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="setCheckEvent">JQuery Extended Functions &#9658; setCheckEvent : <span class="func"> function() <span></h2>
+<h2 id="setCheckEvent">JQuery Extended Functions &#9658; setCheckEvent : <span class="func"> function(selector) <span></h2>
 <p >set event on check box when it is click</p>
 <pre class="brush: js;">   
     //Example: 
@@ -742,13 +749,12 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="setIdIfChecked">JQuery Extended Functions &#9658; setIdIfChecked : <span class="func"> function() <span></h2>
+<h2 id="setIdIfChecked">JQuery Extended Functions &#9658; setIdIfChecked : <span class="func"> function(value, elementId) <span></h2>
 <p >setIdIfChecked</p>
 <pre class="brush: js;">   
     //Example: 
-	
-   
-    
+	  
+    $("#" + tblSpecsPropNew).setIdIfChecked(id,"specs_id");  
 	 
 </pre>
 
@@ -762,7 +768,7 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="showPopup">JQuery Extended Functions &#9658; showPopup : <span class="func"> function() <span></h2>
+<h2 id="showPopup">JQuery Extended Functions &#9658; showPopup : <span class="func"> function({}) <span></h2>
 <p >showPopup</p>
 <pre class="brush: js;">   
     //Example: 
@@ -775,8 +781,8 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="toJSON">JQuery Extended Functions &#9658; toJSON : <span class="func"> function() <span></h2>
-<p >toJSON</p>
+<h2 id="toJSON">JQuery Extended Functions &#9658; toJSON : <span class="func"> function({}) <span></h2>
+<p >Convert HTML Elements to JSON format</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -784,18 +790,6 @@ $("#btnSaveNotes").click(function (){
     
 	 
 </pre>
-
-<h2 id="toJSON2">JQuery Extended Functions &#9658; toJSON2 : <span class="func"> function() <span></h2>
-<p >toJSON2</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
-
-
 
 </div>
 </body>
