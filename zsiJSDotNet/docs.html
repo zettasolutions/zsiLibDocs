@@ -16,7 +16,7 @@
 <div class="main">
 
 <a name="top"></a>
-<h2 id="ctrl">bs  &#9658;  ctrl : <span class="func"> function()</span> </h2>
+<h2 id="ctrl">bs  &#9658;  ctrl : <span class="func"> function({})</span> </h2>
 <p >Create bootstrap control.</p>
 <table >
 	<tr><th>JSON Parameters</th><th>Description </th><th>Optional </th></tr>
@@ -39,7 +39,7 @@
 	
 </pre>
 
-<h2 id="button">bs  &#9658; button : <span class="func"> function() <span></h2>
+<h2 id="button">bs  &#9658; button : <span class="func"> function({}) <span></h2>
 <p >Create bootstrap button control.</p>
 <table >
 	<tr><th>JSON Parameters</th><th>Description </th><th>Optional </th></tr>
@@ -57,7 +57,7 @@
 </pre>
 
 <h1 >form:</h1>
-<h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function() <span></h2>
+<h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function(element, display_text) <span></h2>
 <p >Check date in forms of array</p>
 <table >
 	<tr><th>Parameters</th><th>Description </th><th>Optional </th></tr>
@@ -88,7 +88,7 @@
 </pre>
 
 
-<h2 id="checknum">form  &#9658; checkNumber : <span class="func"> function() <span></h2>
+<h2 id="checknum">form  &#9658; checkNumber : <span class="func"> function(event, notIncluded) <span></h2>
 <p >Returns only numeric number </p>
 <pre class="brush: js;">   
     //Example: 
@@ -111,7 +111,7 @@
 	 
 </pre>
 
-<h2 id="markMandatory">form  &#9658; markMandatory : <span class="func"> function() <span></h2>
+<h2 id="markMandatory">form  &#9658; markMandatory : <span class="func"> function({}) <span></h2>
 <p>mark object(s) with mandatory</p>
 
 <table>
@@ -168,7 +168,7 @@
 	//display "data has been saved.".
 </pre>
 
-<h2 id="displayLOV">form  &#9658; displayLOV : <span class="func"> function() <span></h2>
+<h2 id="displayLOV">form  &#9658; displayLOV : <span class="func"> function({}) <span></h2>
 <p >Display list of values</p>
 <table >
 	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
@@ -233,13 +233,17 @@
 						
 </pre>
 
-<h2 id="getTableLayoutsObjects">zsi &#9658;  getTableLayoutsObjects : <span class="func"> function($selector, pre_value, delimited_character) <span></h2>
+<h2 id="getTableLayoutsObjects">zsi &#9658;  getTableLayoutsObjects : <span class="func"> function(code, callBackFunction) <span></h2>
 <p >Display the table with records.</p>
 <table >
-	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><th>Parameters</th><th>Description </th><th>Optional </th></tr>
 	<tr>
-		<td></td><td></td><td></td>
+	<tr>
+		<td>Parameter 1</td><td>Code</td><td>No</td>
 	</tr>
+		<td>Parameter 2</td><td>call back function or onComplete </td><td>No</td>
+	</tr>
+	
 </table>
 <pre class="brush: js;">   
     //Example: 
@@ -250,7 +254,7 @@
 
 </pre>
 
-<h2 id="getUrlParamValue">zsi &#9658;  getUrlParamValue : <span class="func"> function() <span></h2>
+<h2 id="getUrlParamValue">zsi &#9658;  getUrlParamValue : <span class="func"> function(parameterName) <span></h2>
 <p >Get the value  of a specific parameter.</p>
 <pre class="brush: js;">   
     //Example: 
@@ -259,7 +263,7 @@
 
 </pre>
 
-<h2 id="init">zsi &#9658;  init : <span class="func"> function() <span></h2>
+<h2 id="init">zsi &#9658;  init : <span class="func"> function({}) <span></h2>
 <p >Set the zsi library configuration.</p>
 <table >
 	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
