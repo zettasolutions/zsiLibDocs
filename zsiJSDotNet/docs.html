@@ -758,6 +758,51 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
+<h2 id="toJSON">JQuery Extended Functions &#9658; googleSearch : <span class="func"> function({}) <span></h2>
+<p >Google Search</p>
+<pre class="brush: js;">   
+
+//Example: 
+	
+$("#btnSearch").click(function(){
+   var keyword = $("#vehicle_model_id").val();
+   
+   $(".rightNav").showPopup({
+		 title : ""
+		,body  : "<h4>Search Results :</h4><div class='col-sm-12' id='searchResults'></div>"
+	});
+	
+   displaySearch(keyword);
+});
+
+function displaySearch(keyword){
+$("#searchResults").empty();
+    
+$.get(procURL + "elect_cdr_search_sel @keyword='" + keyword + "',@project_id_param='48',@specs_id_param='" + projectId + "'"
+,function(data){
+	var d = data.rows;
+	var h = "";
+	
+	for(var i=0; i < d.length; i++){
+		h   += '<div class="media">'
+			+    '<div class="media-left">'
+			+       '<a href="#">'
+			+           '<h4>' + d[i].resultDesc + '</h4>'
+			+       '</a>'
+			+    '</div>'
+			+    '<div class="media-body">'
+			+      '<span class="media-heading">'+ d[i].projectName  +' | '+ d[i].specsName +'</span>'
+			+    '</div>'
+			+  '</div>';
+	}
+		$("#searchResults").html(h);
+	});
+}
+
+	 
+</pre>
+
+
 <h2 id="setUniqueOptions">JQuery Extended Functions &#9658; setUniqueOptions : <span class="func"> function() <span></h2>
 <p >setUniqueOptions</p>
 <pre class="brush: js;">   
