@@ -302,6 +302,17 @@
 </pre>
 
 
+
+<h2 id="xtoggleExtraRow">zsi &#9658;  toggleExtraRow : <span class="func"> function( {} ) <span></h2>
+<p >To toggle row into expand and collapse.</p>
+<pre class="brush: js;">   
+    //Example: 
+ 
+  
+	 
+</pre>
+
+
 <h2 id="groupByColumnIndex">json &#9658;  groupByColumnIndex : <span class="func"> function() <span></h2>
 <p >groupByColumnIndex</p>
 <pre class="brush: js;">   
@@ -610,8 +621,166 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind : <span class="func"> function( {} or Code) <span></h2>
-<p >function for select or dropdown items</p>
+<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind: <span class="func"> function( {} ) <span></h2>
+<p >This function is used to display the list of records.</p>
+
+<h2 >dataBind for Grid/Table, you can also use dataBindGrid function: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description 										</th><th>Optional</th></tr>
+	<tr><td>url 				</td><td>Url of data 										</td><td>Yes</td></tr>
+	<tr><td>rows 				</td><td>Array of data objects. No need to include "url" parameter 	</td><td>Yes</td></tr>
+	<tr><td>blankRowsLimit		</td><td>number of rows. this is only for new entry. 		</td><td>Yes</td></tr>
+	<tr><td>width 				</td><td>Width of table										</td><td>Yes</td></tr>
+	<tr><td>height 				</td><td>Height of table 									</td><td>Yes</td></tr>	
+	<tr><td>selectorType 		</td><td>Types of Selectors : checkbox or radio				</td><td>Yes</td></tr>
+	<tr><td>dataRows 			</td><td>Collections of zsi.bs controls  					</td><td>No</td></tr>	 
+	<tr><td>onEachComplete 		</td><td>Fires on each row completed						</td><td>Yes</td></tr>	 
+	<tr><td>onComplete 			</td><td>Fires on rows completed							</td><td>Yes</td></tr>	 
+	<tr><td>isAsync 			</td><td>Asynchronous option : true or false				</td><td>Yes</td></tr>	 
+	<tr><td>toggleMasterKey		</td><td>Used to create master and detail table 			</td><td>Yes</td></tr>	 		
+</table>
+<pre class="brush: js;"> 
+ //Example 1: 
+ 
+$(&quot;#grid&quot;).dataBind({
+         toggleMasterKey    : &quot;parent_id&quot;
+        ,height             : 400 
+        ,width              : $(document).width() - 25
+        ,url                : execURL + &quot;myprocedure_sel @date_from=&quot;+ (dateFrom ? &quot;&#39;&quot; + dateFrom + &quot;&#39;&quot; : null)
+                                      + &quot;,@date_to=&quot;+ (dateTo ? &quot;&#39;&quot; + dateTo + &quot;&#39;&quot; : null)
+                                      + &quot;,@report_type_id=&quot;+ (rTypeId ? rTypeId  : null)
+        ,dataRows : [
+                {text  : &quot;&amp;nbsp;&quot;		, width : 25	, style : &quot;text-align:left;&quot;
+                     ,onRender : function(d){
+                          return &quot;&lt;a  href=&#39;javascript:void(0);&#39; onclick=&#39;displayDetail(this,&quot;+ d.parent_id +&quot;);&#39;&gt;&lt;span class=&#39;glyphicon glyphicon-collapse-down&#39; style=&#39;font-size:12pt;&#39; &gt;&lt;/span&gt; &lt;/a&gt;&quot;; 
+                    }
+                 }
+        		,{text  : &quot;Supplier Name&quot;           , name  : &quot;supplier_name&quot;           , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;no_items&quot;                , name  : &quot;no_items&quot;                , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_ordered_qty&quot;       , name  : &quot;total_ordered_qty&quot;       , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_balance_qty&quot;       , name  : &quot;total_balance_qty&quot;       , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_amount&quot;            , name  : &quot;total_amount&quot;            , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;status_name&quot;             , name  : &quot;status_name&quot;             , width : 150           , style : &quot;text-align:left;&quot;}
+        		
+	    ]  
+
+        ,onComplete:function(){
+            console.log(&quot;display completed.&quot;)
+        }      
+
+    });
+}
+
+function displayDetail(o,id){
+    zsi.toggleExtraRow({
+         object     : o
+        ,parentId   : id
+        ,onLoad : function($grid){ 
+           
+                $grid.dataBind({
+                     url: execURL + &quot;my_detail_sel&quot; 
+                    ,height:100 
+                    ,width : $(document).width() - 49
+                    ,dataRows : [
+                    		 {text  : &quot;Item Name&quot;   , name  : &quot;item_name&quot;        , width : 350  , style : &quot;text-align:left;&quot;}
+                    		,{text  : &quot;status_name&quot; , name  : &quot;status_name&quot;      , width : 150  , style : &quot;text-align:left;&quot;}
+                    		
+            	    ]  
+                  
+                });            
+        }
+    
+    });
+}
+
+//Example 2:
+
+$(&quot;#grid&quot;).dataBind({
+	     url   : procURL + &quot;users2_sel @filter_user_id=&quot; + user_id
+        ,width          : $(document).width() - 200
+	    ,height         : $(document).height() - 250
+	    ,selectorType   : &quot;checkbox&quot;
+        ,blankRowsLimit :5
+        ,isPaging : true
+        ,dataRows       :[
+     		 { text:&quot;User&quot;          , width:260     , style:&quot;text-align:center;&quot;      ,type:&quot;select&quot;     ,name:&quot;user_id&quot;    ,sortColNo: 0 }	 
+    		,{ text:&quot;Role&quot;          , width:200     , style:&quot;text-align:left;&quot;        ,type:&quot;select&quot;     ,name:&quot;role_id&quot;    }
+    		,{ text:&quot;Logon&quot;          , width:150     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return &quot;&lt;input type=&#39;hidden&#39; name=&#39;password&#39; value=&#39;&quot; + svn(d, &quot;password&quot;) + &quot;&#39;&gt;&quot; + svn(d, &quot;logon&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Rank&quot;          , width:150     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;rankDesc&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Position&quot;      , width:170     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;position&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Organization&quot;  , width:200     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;organizationName&quot;);
+    		    }
+    		}
+	    ]
+
+        ,onComplete: function(){
+           
+            $(&quot;select[name=&#39;user_id&#39;]&quot;).dataBind({
+                  url: base_url + &quot;selectoption/code/notUsers&quot;
+                , isUniqueOptions:true
+                , onComplete: function(){
+                    $(&quot;select[name=&#39;user_id&#39;]&quot;).setUniqueOptions();
+                }
+            });  
+            
+             $(&quot;select[name=&#39;user_id&#39;]&quot;).change(function(){
+                var o = $(this);
+                var selVal =o.attr(&quot;selectedvalue&quot;);
+                var zRow = o.parent().parent();
+               
+                if(typeof selVal==ud){
+                    $.get(execURL + &quot;select dbo.createUserLogon(&quot; + o.val() + &quot;) as username&quot;,function(data){
+                        $.get(base_url + &quot;account/getnewpassword?pwd=&quot; +   data.rows[0].username,function(data){
+                            zRow.find(&quot;[name=&#39;password&#39;]&quot;).val(data);
+                        });
+                   });
+                }
+             });
+
+            $(&quot;select[name=&#39;plant_id&#39;]&quot;).dataBind( &quot;plants&quot;);
+            $(&quot;select[name=&#39;role_id&#39;]&quot;).dataBind({
+                url:  getOptionsURL(&quot;roles&quot;)
+                ,onComplete:function(){
+                    $(&quot;select[name=&#39;role_id&#39;]&quot;).change();
+                }
+            });
+            markUserMandatory();
+            $(&quot;.no-data input[name=&#39;logon&#39;]&quot;).checkValueExists({code:&quot;adm-0002&quot;,colName:&quot;logon&quot;});
+     
+        }
+        
+    });  
+
+
+</pre>
+
+
+<h2 >dataBind for Select options or DropDownList: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description 					</th><th>Optional</th></tr>
+	<tr><td>url 				</td><td>Url of data 					</td><td>No</td></tr>
+	<tr><td>text 				</td><td>Display Text 					</td><td>Yes</td></tr>	
+	<tr><td>value  				</td><td>Value							</td><td>Yes</td></tr>
+	<tr><td>selectedValue 		</td><td>set default value				</td><td>Yes</td></tr>	
+	<tr><td>isUniqueOptions 	</td><td>set options display as unique  </td><td>Yes</td></tr>
+	<tr><td>required 			</td><td>Value							</td><td>Yes</td></tr>
+	<tr><td>onComplete 			</td><td>Fires on rows completed		</td><td>Yes</td></tr>	 
+</table>
+
 <pre class="brush: js;">   
     //Example1: 
 
