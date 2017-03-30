@@ -311,10 +311,17 @@
 		     zsi.toggleExtraRow({
          object     : o
         ,parentId   : id
-        ,onLoad : function($gridDatabind){
-            
+        ,onLoad : function($grid){
+				 $grid.dataBind({
+                 url        : execURL + "procurement_detail_sel @procurement_id="+ id
+                 //,width     : $(document.width) -100
+                ,dataRows   : [
+                		 {text  : "Item No."                , name  : "item_no"                     , width : 100           , style : "text-align:left;"}
+                		,{text  : "Part No."                , name  : "part_no"                     , width : 100           , style : "text-align:left;"}
+                		,{text  : "National Stock No."      , name  : "national_stock_no"           , width : 150           , style : "text-align:left;"}
+                		,{text  : "Item Description"        , name  : "item_description"            , width : 250           , style : "text-align:left;"}
             });
-  
+			]
 	 
 </pre>
 
