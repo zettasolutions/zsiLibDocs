@@ -303,7 +303,7 @@
 
 
 
-<h2 id="xtoggleExtraRow">zsi &#9658;  toggleExtraRow : <span class="func"> function( {} ) <span></h2>
+<h2 id="toggleExtraRow">zsi &#9658;  toggleExtraRow : <span class="func"> function( {} ) <span></h2>
 <p >To toggle row into expand and collapse.</p>
 <pre class="brush: js;">   
     //Example: 
@@ -311,12 +311,8 @@
 		     zsi.toggleExtraRow({
          object     : o
         ,parentId   : id
-        ,onLoad : function($grid){ 
+        ,onLoad : function($gridDatabind){
             
-            var toCurrency = new Intl.NumberFormat('en-PH', {
-                style: 'currency', 
-                currency: 'PHP', 
-                minimumFractionDigits: 2,
             });
   
 	 
