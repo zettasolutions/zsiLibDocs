@@ -308,6 +308,16 @@
 <pre class="brush: js;">   
     //Example: 
  
+		     zsi.toggleExtraRow({
+         object     : o
+        ,parentId   : id
+        ,onLoad : function($grid){ 
+            
+            var toCurrency = new Intl.NumberFormat('en-PH', {
+                style: 'currency', 
+                currency: 'PHP', 
+                minimumFractionDigits: 2,
+            });
   
 	 
 </pre>
@@ -884,6 +894,8 @@ $(&quot;#grid&quot;).dataBind({
 <p >loadData2</p>
 <pre class="brush: js;">   
     //Example: 
+	
+		
 	
  
     
