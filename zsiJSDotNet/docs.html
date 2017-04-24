@@ -507,13 +507,38 @@
 	 
 </pre>
 
-<h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func"> function() <span></h2>
+<h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func">  function({}) <span></h2>
 <p >check the specific Value if it is already existed  </p>
 <pre class="brush: js;">   
-    //Example: 
-	
-     $("input[name='oem_name'].new-entry").checkValueExists({code:"ref-0004",colName:"oem_name"});
     
+     //example 1:
+                 //This example is data already exist.
+
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        code:"ref-0009"
+                       ,colName:"origin_name"
+                   });
+                   
+                                    
+                 
+                 //example 2:
+                 //This example is for the NOT exist data.
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        code:"ref-0009"
+                       ,colName:"origin_name"
+                       ,isNotExistShow :  true
+                       ,message : "data not exists"
+                   });
+
+
+
+                //example 3:
+                //This example is to alter the default procedure name, just add a property "procedureName".
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        procedureName : "customStoredProcedureCheckValueExists"
+                       ,code:"ref-0009"
+                       ,colName:"origin_name"
+                   });
 	 
 </pre>
 
