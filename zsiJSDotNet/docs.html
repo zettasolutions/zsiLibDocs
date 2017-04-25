@@ -509,10 +509,19 @@
 
 <h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func">  function({}) <span></h2>
 <p >check the specific Value if it is already existed  </p>
+<table >
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>code</td><td> Reference code of table/view</td><td>No</td></tr>
+	<tr><td>colName</td><td>Column name where to search a keyword</td><td>No</td></tr>
+	<tr><td>isNotExistShow</td><td> (true/false) value, a reverse option in order to show none exists data.</td><td>Yes</td></tr>	
+	<tr><td>message</td><td>alert message "data not exists".</td><td>Yes</td></tr>
+	<tr><td>procedureName</td><td>Used to customized default message. </td><td>Yes</td></tr>	 	
+</table>
+
 <pre class="brush: js;">   
     
      //example 1:
-                 //This example is data already exist.
+                 //This example is for data already exist.
 
                    $(".no-data input[name='origin_name']").checkValueExists({
                         code:"ref-0009"
