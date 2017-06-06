@@ -518,6 +518,8 @@
 	<tr><td>procedureName</td><td>Used to customized default message. </td><td>Yes</td></tr>	 	
 	
 	<tr><td>isCheckOnDb</td><td>(true/false) value - allow to check on database. </td><td>Yes</td></tr>	 
+
+	<tr><td>onHide</td><td> fires after message is shown </td><td>Yes</td></tr>	 
 	
 	
 </table>
@@ -552,6 +554,23 @@
                        ,code:"ref-0009"
                        ,colName:"origin_name"
                    });
+				   
+				   
+				//example 4:   
+            $(".no-data input[name='part_no']").checkValueExists({
+                    code:"ref-0023"
+                    ,isNotExistShow : false 
+                    ,isCheckOnDb : false 
+                    ,message : "data already exist"
+                    ,onHide: function($zRow){
+                        //clear values
+                        $zRow.find("#item_code_id").val("");
+                        $zRow.find("#national_stock_no").val("");
+                        $zRow.find("#item_name").val("");
+                    }
+                
+            });				   
+				   
 	 
 </pre>
 
