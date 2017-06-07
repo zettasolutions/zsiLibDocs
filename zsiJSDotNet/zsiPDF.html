@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"></meta>  
+		<link href="../docstyle.css" rel="stylesheet" type="text/css"></link> 
+		<title>Documentation Overview</title>
+	<script type="text/javascript" src="../plugins/syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../plugins/syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="../plugins/syntaxhighlighter_3.0.83/styles/shCoreFadeToGrey.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+</head>
+<body>
+
+<div class="main">
+
+<a name="top"></a>
+<h2 id="zsiPDF">zsi.createPdfReport : <span class="func"> function({})</span> </h2>
+<p>This function will generate pdf report.</p>
+<table >
+	<tr><th>JSON Parameters</th><th>Description </th><th>Optional </th></tr>	
+	<tr><td>margin               		</td><td> The edge or border (left,right,top,bottom)		</td><td>No</td></tr>
+	<tr><td>cellMargin           		</td><td> Cell/box margin (left,right,top,bottom)			</td><td>No</td></tr>
+	<tr><td>isDisplay            		</td><td> No = direct print(default), Yes = Display 		</td><td>Yes</td></tr>
+	<tr><td>fileName             		</td><td> Name of file										</td><td>Yes</td></tr>
+	<tr><td>rowHeight            		</td><td> height of row 									</td><td>Yes</td></tr>
+	<tr><td>widthLimit           		</td><td> width limit of a document.						</td><td>Yes</td></tr>
+	<tr><td>pageHeightLimit      		</td><td> height limit of a page							</td><td>Yes</td></tr>
+	<tr><td>masterKey / data           	</td><td> a parent/master key for master/detail display		</td><td>No</td></tr>
+	<tr><td>masterColumn / columnHeader </td><td> a set of properties for parent/master Columns		</td><td>No</td></tr>
+	<tr><td>detailColumn         		</td><td> a set of properties for child/detail Columns		</td><td>Yes</td></tr>
+	<tr><td>masterData           		</td><td> data for parent/master data</td>					<td>Yes</td></tr>
+	<tr><td>detailData           		</td><td> data for child/detail data</td>					<td>Yes</td></tr>
+	<tr><td>onInit        				</td><td> event: fires during initialization. Here you can customize document/paper size.</td><td>Yes</td></tr>
+	<tr><td>onPrintHeader        		</td><td> event: fires during on print header.				</td><td>Yes</td></tr>
+	<tr><td>onMasterDataPrint    		</td><td> event: fires during on print master data  		</td><td>Yes</td></tr>
+</table>
+<pre class="brush: js;">  
+ 
+//Template Code:
+	   <script src="/Scripts/jspdf.min.js"></script>
+	   <script src='/javascript/name/zsiPdf'></script>
+// End of template code 
+ 
+//Javascript Code:
+
+	//image initialization 
+	 $(document).ready(function(){
+		imgToBase64( base_url + 'images/logo.jpg'  , function(img){
+			g_imgData = img;
+		}); 
+	 });
+ 
+ 
+	//Example 1: Single set data display
+	
+	zsi.createPdfReport({
+         margin             : { top :30  ,left:25 }
+        ,cellMargin         : { left: 5 }
+        ,isDisplay          : true
+        ,fileName           : "myReport1.pdf"  
+        ,rowHeight          : 14
+        ,widthLimit         : 520
+        ,pageHeightLimit    : 800
+        ,columnHeader       : g_masterColumn //pls. refer sample deta below
+        ,data               : g_masterData	 //pls. refer sample deta below	
+        ,onInit             : function(){
+            return new jsPDF("l", "pt", "A4"); //customized document/paper size.
+        }
+        ,onPrintHeader      : function(o){
+            if (g_imgData) {
+                o.doc.addImage(g_imgData, 'JPEG', o.margin.left,  o.row, 50, 50);
+            }
+            o.row +=27;
+            o.doc.setFontSize(12);
+            o.doc.text(o.margin.left + 60, o.row, "Zetta-Solutions, Inc.");
+            o.row +=40;
+            o.doc.setFontSize(14);
+            o.doc.text(o.margin.left, o.row, "My Report #1");
+            o.doc.setFontSize(10);
+            o.row +=16;
+            return o;
+        }
+       
+        
+    });         
+    
+ 
+    //Example 2: Master/Detail auto display	
+	
+    zsi.createPdfReport({
+         margin             : { top :30  ,left:25 }
+        ,cellMargin         : { left: 5 }
+        ,isDisplay          : true
+        ,fileName           : "myReport2.pdf"
+        ,rowHeight          : 14
+        ,widthLimit         : 550
+        ,pageHeightLimit    : 800
+        ,masterKey          : "parent_id"
+        ,masterColumn       : g_masterColumn 	//pls. refer sample deta below
+        ,masterData         : g_masterData		//pls. refer sample deta below
+        ,detailColumn       : g_detailColumn	//pls. refer sample deta below
+        ,detailData         : g_detailData		//pls. refer sample deta below
+        ,onPrintHeader      : function(o){
+            if (g_imgData) {
+                o.doc.addImage(g_imgData, 'JPEG', o.margin.left,  o.row, 50, 50);
+            }
+            o.row +=27;
+            o.doc.setFontSize(12);
+            o.doc.text(o.margin.left + 60, o.row, "Zetta-Solutions, Inc.");
+            o.row +=40;
+            o.doc.setFontSize(14);
+            o.doc.text(o.margin.left, o.row, "My Report #2 : master/detail");
+            o.doc.setFontSize(10);
+            o.row +=16;
+            return o;
+        }
+    });  					 
+
+
+    //Example 3: Master/Detail customized master data display		
+    zsi.createPdfReport({
+         margin             : { top :20  ,left:25 }
+        ,cellMargin         : { left: 5 }
+        ,rowHeight          : 14
+        ,widthLimit         : 550
+        ,pageHeightLimit    : 750
+        ,isDisplay          : true
+		,fileName           : "myReport3.pdf"
+        ,masterKey          : "parent_id"
+        ,masterColumn       : g_masterColumn
+        ,masterData         : g_masterData
+        ,detailColumn       : g_detailColumn
+        ,detailData         : g_detailData
+        ,onPrintHeader      : function(o){
+            if (g_imgData) {
+                o.doc.addImage(g_imgData, 'JPEG', o.margin.left,  o.row, 50, 50);
+            }
+            o.row +=27;
+            o.doc.setFontSize(12);
+            o.doc.text(o.margin.left + 60, o.row, "Zetta-Solutions, Inc.");
+            o.row +=40;
+            o.doc.setFontSize(14);
+            o.doc.text(o.margin.left, o.row, "My Report #3 : master/detail");
+            o.doc.setFontSize(10);
+            o.row +=16;
+            return o;
+        }
+
+        //customized master data printing
+        ,onMasterDataPrint : function(o){
+            if(o.index>0) o.row +=14; 
+            //setBoxColor(o.doc,207, 226, 247);
+            //o.doc.rect(20, o.row-10, 90,14, 'FD');    
+            o.doc.text(25, o.row, "Procurement No.");
+            
+            //setBoxColor(o.doc,255, 255, 255);
+            //o.doc.rect(120, o.row-10, 60,14, 'FD');    
+            o.doc.text(125, o.row, ": "  + o.data.proc_no);
+
+
+            //setBoxColor(o.doc,207, 226, 247);
+            //o.doc.rect(200, o.row-10, 100,14, 'FD');    
+            o.doc.text(205, o.row, "Procurement Name");
+            
+            //setBoxColor(o.doc,255, 255, 255);
+            //o.doc.rect(310, o.row-10, 110,14, 'FD');    
+            o.doc.text(315, o.row,  ": "  + o.data.pname);
+            
+            //new row
+            o.row +=18; 
+            //setBoxColor(o.doc,207, 226, 247);
+            //o.doc.rect(20, o.row-10, 90,14, 'FD');    
+            o.doc.text(25, o.row, "Supplier");
+            
+            //setBoxColor(o.doc,255, 255, 255);
+            //o.doc.rect(120, o.row-10, 60,14, 'FD');    
+            o.doc.text(125, o.row, ": "  + o.data.supplier);
+            
+            return o.row;    
+        }
+        
+        
+        
+    });  	
+	
+
+/* sample data 
+=======================================================================================================================================================
+*/
+
+var g_masterColumn   = [   
+                             {name:"proc_no"    ,title:"Procurement No."    ,titleWidth:100 ,width:50}
+                            ,{name:"pdate"      ,title:"Procurement Date"   ,titleWidth:100 ,width:80}
+                            ,{name:"pname"      ,title:"Procurement Name"   ,titleWidth:100 ,width:100}
+                            ,{name:"supplier"   ,title:"Supplier"           ,titleWidth:100 ,width:100}
+                        ];
+var g_masterData    = [
+                             { parent_id : 1    ,proc_no :"1001"  ,pdate :"05/01/2017"    ,pname: "procurement name 1"   ,supplier : "supplier 1" } 
+                            ,{ parent_id : 2    ,proc_no :"1002"  ,pdate :"05/02/2017"    ,pname: "procurement name 2"   ,supplier : "supplier 2" } 
+                            ,{ parent_id : 3    ,proc_no :"1003"  ,pdate :"05/03/2017"    ,pname: "procurement name 3"   ,supplier : "supplier 3" } 
+                            ,{ parent_id : 4    ,proc_no :"1004"  ,pdate :"05/04/2017"    ,pname: "procurement name 5"   ,supplier : "supplier 4" } 
+                            ,{ parent_id : 5    ,proc_no :"1005"  ,pdate :"05/04/2017"    ,pname: "procurement name 6"   ,supplier : "supplier 5" }
+                            ,{ parent_id : 6    ,proc_no :"1006"  ,pdate :"05/04/2017"    ,pname: "procurement name 7"   ,supplier : "supplier 6" }
+                            ,{ parent_id : 7    ,proc_no :"1007"  ,pdate :"05/04/2017"    ,pname: "procurement name 8"   ,supplier : "supplier 7" }
+                            ,{ parent_id : 8    ,proc_no :"1008"  ,pdate :"05/04/2017"    ,pname: "procurement name 9"   ,supplier : "supplier 8" }
+                            ,{ parent_id : 9    ,proc_no :"1009"  ,pdate :"05/04/2017"    ,pname: "procurement name 10"  ,supplier : "supplier 9" }
+                            ,{ parent_id : 10   ,proc_no :"10010" ,pdate :"05/04/2017"    ,pname: "procurement name 11"  ,supplier : "supplier 10" }
+                        ] 
+
+var g_detailColumn   = [   
+                             {name:"item_no"        ,title:"Item No."       ,width:100}
+                            ,{name:"stock_no"       ,title:"Stock No."      ,width:100}
+                            ,{name:"nomenclature"   ,title:"Nomenclature."  ,width:150}
+                            ,{name:"unit_measure"   ,title:"Unit Measure"   ,width:100}
+                        ];                        
+
+var g_detailData     = [
+        
+                             { parent_id : 1    ,item_no:11     ,part_no: "204-060-762-1"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA1"}
+                            ,{ parent_id : 1    ,item_no:12     ,part_no: "205-040-176-2"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA2"}
+                            ,{ parent_id : 2    ,item_no:21     ,part_no: "204-060-762-3"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 2    ,item_no:22     ,part_no: "204-060-762-4"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 2    ,item_no:23     ,part_no: "204-060-762-5"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 1    ,item_no:13     ,part_no: "204-060-762-6"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 2    ,item_no:24     ,part_no: "204-060-762-7"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 2    ,item_no:25     ,part_no: "204-060-762-8"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 2    ,item_no:26     ,part_no: "204-060-762-9"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+                            ,{ parent_id : 2    ,item_no:27     ,part_no: "204-060-762-10"   ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA10"}
+                            ,{ parent_id : 4    ,item_no:41     ,part_no: "204-060-762-11"   ,stock_no :"1680-00-990-9867"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA11"}
+                            ,{ parent_id : 4    ,item_no:42     ,part_no: "204-060-762-12"   ,stock_no :"1680-00-990-0435"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA12"}
+                            ,{ parent_id : 4    ,item_no:43     ,part_no: "204-060-762-13"   ,stock_no :"1680-00-990-1233"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA13"}
+                            ,{ parent_id : 4    ,item_no:44     ,part_no: "204-060-762-14"   ,stock_no :"1680-00-990-4344"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA14"}
+                            ,{ parent_id : 5    ,item_no:51     ,part_no: "205-040-176-2"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA2"}
+                            ,{ parent_id : 5    ,item_no:52     ,part_no: "204-060-762-3"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 5    ,item_no:53     ,part_no: "204-060-762-4"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 5    ,item_no:54     ,part_no: "204-060-762-5"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 5    ,item_no:55     ,part_no: "204-060-762-6"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 5    ,item_no:56     ,part_no: "204-060-762-7"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 5    ,item_no:57     ,part_no: "204-060-762-8"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 5    ,item_no:58     ,part_no: "204-060-762-9"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+                            ,{ parent_id : 5    ,item_no:59     ,part_no: "204-060-762-10"   ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA10"}
+                            ,{ parent_id : 5    ,item_no:510    ,part_no: "204-060-762-11"   ,stock_no :"1680-00-990-9867"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA11"}
+                            ,{ parent_id : 5    ,item_no:511    ,part_no: "204-060-762-12"   ,stock_no :"1680-00-990-0435"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA12"}
+                            ,{ parent_id : 5    ,item_no:512    ,part_no: "204-060-762-13"   ,stock_no :"1680-00-990-1233"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA13"}
+                            ,{ parent_id : 5    ,item_no:513    ,part_no: "204-060-762-14"   ,stock_no :"1680-00-990-4344"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA14"}
+                            ,{ parent_id : 5    ,item_no:51     ,part_no: "205-040-176-2"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA2"}
+                            ,{ parent_id : 5    ,item_no:52     ,part_no: "204-060-762-3"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 5    ,item_no:53     ,part_no: "204-060-762-4"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 5    ,item_no:54     ,part_no: "204-060-762-5"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 5    ,item_no:55     ,part_no: "204-060-762-6"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 5    ,item_no:56     ,part_no: "204-060-762-7"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 5    ,item_no:57     ,part_no: "204-060-762-8"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 5    ,item_no:58     ,part_no: "204-060-762-9"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+                            ,{ parent_id : 5    ,item_no:59     ,part_no: "204-060-762-10"   ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA10"}
+                            ,{ parent_id : 5    ,item_no:510    ,part_no: "204-060-762-11"   ,stock_no :"1680-00-990-9867"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA11"}
+                            ,{ parent_id : 5    ,item_no:511    ,part_no: "204-060-762-12"   ,stock_no :"1680-00-990-0435"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA12"}
+                            ,{ parent_id : 5    ,item_no:512    ,part_no: "204-060-762-13"   ,stock_no :"1680-00-990-1233"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA13"}
+                            ,{ parent_id : 5    ,item_no:513    ,part_no: "204-060-762-14"   ,stock_no :"1680-00-990-4344"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA14"}
+
+
+                            ,{ parent_id : 6    ,item_no:71     ,part_no: "205-040-176-1"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA1"}
+                            ,{ parent_id : 6    ,item_no:72     ,part_no: "204-060-762-2"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA2"}
+                            ,{ parent_id : 6    ,item_no:73     ,part_no: "204-060-762-3"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 6    ,item_no:74     ,part_no: "204-060-762-4"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 6    ,item_no:75     ,part_no: "204-060-762-5"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 6    ,item_no:76     ,part_no: "204-060-762-6"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 6    ,item_no:77     ,part_no: "204-060-762-7"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 6    ,item_no:78     ,part_no: "204-060-762-8"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 6    ,item_no:79     ,part_no: "204-060-762-9"   ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"    ,unit_measure :  "EA9"}
+
+
+                            ,{ parent_id : 7    ,item_no:71     ,part_no: "205-040-176-1"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA1"}
+                            ,{ parent_id : 7    ,item_no:72     ,part_no: "204-060-762-2"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA2"}
+                            ,{ parent_id : 7    ,item_no:73     ,part_no: "204-060-762-3"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 7    ,item_no:74     ,part_no: "204-060-762-4"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 7    ,item_no:75     ,part_no: "204-060-762-5"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 7    ,item_no:76     ,part_no: "204-060-762-6"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 7    ,item_no:77     ,part_no: "204-060-762-7"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 7    ,item_no:78     ,part_no: "204-060-762-8"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 7    ,item_no:79     ,part_no: "204-060-762-9"    ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+
+
+                            ,{ parent_id : 8    ,item_no:81     ,part_no: "205-040-178-1"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA1"}
+                            ,{ parent_id : 8    ,item_no:82     ,part_no: "204-060-768-2"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA2"}
+                            ,{ parent_id : 8    ,item_no:83     ,part_no: "204-060-768-3"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 8    ,item_no:84     ,part_no: "204-060-768-4"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 8    ,item_no:85     ,part_no: "204-060-768-5"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 8    ,item_no:86     ,part_no: "204-060-768-6"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 8    ,item_no:87     ,part_no: "204-060-768-7"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 8    ,item_no:88     ,part_no: "204-060-768-8"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 8    ,item_no:89     ,part_no: "204-060-768-9"    ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+
+
+                            ,{ parent_id : 9    ,item_no:91     ,part_no: "205-040-179-1"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA1"}
+                            ,{ parent_id : 9    ,item_no:92     ,part_no: "204-060-769-2"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA2"}
+                            ,{ parent_id : 9    ,item_no:93     ,part_no: "204-060-769-3"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 9    ,item_no:94     ,part_no: "204-060-769-4"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 9    ,item_no:95     ,part_no: "204-060-769-5"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 9    ,item_no:96     ,part_no: "204-060-769-6"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 9    ,item_no:97     ,part_no: "204-060-769-7"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 9    ,item_no:98     ,part_no: "204-060-769-8"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 9    ,item_no:99     ,part_no: "204-060-769-9"    ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+
+                            ,{ parent_id : 10    ,item_no:101     ,part_no: "205-040-1710-1"    ,stock_no :"1615-00-624-0674"   ,nomenclature : "B00T,DUST "         ,unit_measure : "EA1"}
+                            ,{ parent_id : 10    ,item_no:102     ,part_no: "204-060-7610-2"    ,stock_no :"1680-00-990-2343"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA2"}
+                            ,{ parent_id : 10    ,item_no:103     ,part_no: "204-060-7610-3"    ,stock_no :"1680-00-990-3613"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA3"}
+                            ,{ parent_id : 10    ,item_no:104     ,part_no: "204-060-7610-4"    ,stock_no :"1680-00-990-3235"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA4"}
+                            ,{ parent_id : 10    ,item_no:105     ,part_no: "204-060-7610-5"    ,stock_no :"1680-00-990-3163"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA5"}
+                            ,{ parent_id : 10    ,item_no:106     ,part_no: "204-060-7610-6"    ,stock_no :"1680-00-990-6789"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA6"}
+                            ,{ parent_id : 10    ,item_no:107     ,part_no: "204-060-7610-7"    ,stock_no :"1680-00-990-6793"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA7"}
+                            ,{ parent_id : 10    ,item_no:108     ,part_no: "204-060-7610-8"    ,stock_no :"1680-00-990-5433"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA8"}
+                            ,{ parent_id : 10    ,item_no:109     ,part_no: "204-060-7610-9"    ,stock_no :"1680-00-990-5445"   ,nomenclature : "ACTUATOR ELECTRO"   ,unit_measure : "EA9"}
+
+                        ];
+						
+</pre>
+
+
+</div>
+</body>
+</html>
