@@ -876,6 +876,41 @@ $(&quot;#grid&quot;).dataBind({
 	 });   
 	 
 </pre>
+<h2 >databind new features Select dataBind({}): </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>							<th>Optional</th></tr>
+	<tr><td>index 				</td><td> Index value of select element</td>		<td> </td></tr>
+	<tr><td>data 				</td><td>Jason Data</td>							<td> </td></tr>	
+	<tr><td>Object  			</td><td>Select object/element</td>					<td> </td></tr>
+	<tr><td>Row </td>			<td>zsiGrid row</td>								<td> </td></tr>	
+	
+</table>
+<pre class="brush: js;">   
+ $serial_no.dataBind({ 
+                 url : execURL + "dd_aircraft_items_sel @aircraft_info_id="+ (aircraft_id ? aircraft_id : null)
+                ,text: "serial_no"
+                ,value: "serial_no"
+                ,onChange  : function(info){
+                    var i = info.index - 1; // minus 1 because empty <option> element is not included.
+                    var d =  info.data; //shorten text to eliminate series of duplicated words.
+                    
+                    var _row = info.row;
+                    var  _partNo        = ""
+                        ,_item_name     = "" 
+                      //,_tmp variable  = "" 
+            
+                    if(i > -1){ //check if selected index is out of record index. 
+                        _partNo     = d[i].part_no ; //set data based on record index value 
+                        _item_name  = d[i].item_name;
+                        //...
+                    }
+                    //display temporary data 
+                    _row.find("#part_no").html(_partNo);  
+                    _row.find("#item_name").html( _item_name);
+                }
+            });
+</pre>
+
 
 <h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function({}) <span></h2>
 <p >Delete specific or selected data</p>
