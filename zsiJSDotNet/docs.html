@@ -716,6 +716,21 @@ $("#btnSaveNotes").click(function (){
 	<tr><td>isAsync 			</td><td>Asynchronous option : true or false				</td><td>Yes</td></tr>	 
 	<tr><td>toggleMasterKey		</td><td>Used to create master and detail table 			</td><td>Yes</td></tr>	 		
 </table>
+<h2 >onEachComplete({}) - return object and parameters: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>			</tr>
+	<tr><td>this 			</td><td> return object of row</td>		</tr>
+	<tr><td>row Item 			</td><td> JSON Data</td>			</tr>
+	
+</table>
+<h2 >onComplete({}) - return object and parameters:</h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>				</tr>
+	<tr><td>this 				</td><td> return object of grid </td>	</tr>
+	<tr><td>params 				</td><td> passed parameters </td>		</tr>
+	<tr><td>data  or rows data				</td><td>JSON Data</td>		</tr>	
+	
+</table>
 <pre class="brush: js;"> 
  //Example 1: 
  
@@ -740,8 +755,19 @@ $(&quot;#grid&quot;).dataBind({
         		,{text  : &quot;status_name&quot;             , name  : &quot;status_name&quot;             , width : 150           , style : &quot;text-align:left;&quot;}
         		
 	    ]  
-
-        ,onComplete:function(){
+	    ,onEachComplete: function(rowData){
+	     
+            console.log("row", this);	         
+            console.log("row index", this.index());	         
+            console.log("row Item",rowItem);	         
+            console.log("row Item Data",rowItem.data);	         
+    
+	         
+	    }
+        ,onComplete:function(o){
+			console.log("grid object",this);
+			console.log("parameters",o.params);
+			console.log("all data",o.data);
             console.log(&quot;display completed.&quot;)
         }      
 
@@ -855,7 +881,8 @@ $(&quot;#grid&quot;).dataBind({
 	<tr><td>selectedValue 		</td><td>set default value				</td><td>Yes</td></tr>	
 	<tr><td>isUniqueOptions 	</td><td>set options display as unique  </td><td>Yes</td></tr>
 	<tr><td>required 			</td><td>Value							</td><td>Yes</td></tr>
-	<tr><td>onComplete 			</td><td>Fires on rows completed		</td><td>Yes</td></tr>	 
+	<tr><td>onComplete 			</td><td>Fires when data is loaded	</td><td>Yes</td></tr>	 
+	<tr><td>onChange 			</td><td>Fires when value is changed </td><td>Yes</td></tr>	
 </table>
 
 <pre class="brush: js;">   
@@ -876,12 +903,11 @@ $(&quot;#grid&quot;).dataBind({
 	 });   
 	 
 </pre>
-<h2 >databind new features Select dataBind({}): </h2>
+<h2 >onChange({}) - return object and parameters:  </h2>
 <table>
 	<tr><th>JSON Data parameters</th><th>Description</th>							<th>Optional</th></tr>
 	<tr><td>index 				</td><td> Index value of select element</td>		<td> </td></tr>
-	<tr><td>data 				</td><td>Jason Data</td>							<td> </td></tr>	
-	<tr><td>Object  			</td><td>Select object/element</td>					<td> </td></tr>
+	<tr><td>data 				</td><td>JSON Data</td>							<td> </td></tr>	
 	<tr><td>Row </td>			<td>zsiGrid row</td>								<td> </td></tr>	
 	
 </table>
