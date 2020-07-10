@@ -1,0 +1,1149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"></meta>  
+		<link href="../docstyle.css" rel="stylesheet" type="text/css"></link> 
+		<title>Documentation Overview</title>
+	<script type="text/javascript" src="../plugins/syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+	<script type="text/javascript" src="../plugins/syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="../plugins/syntaxhighlighter_3.0.83/styles/shCoreFadeToGrey.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+</head>
+<body>
+
+<div class="main">
+
+<a name="top"></a>
+<h2 id="ctrl">bs  &#9658;  ctrl : <span class="func"> function({})</span> </h2>
+<p>Create bootstrap control.</p>
+<table >
+	<tr><th>JSON Parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>name </td><td>Name of html control</td><td>No</td></tr>
+	<tr><td>type</td><td>type of input  </td><td>No</td></tr>
+	<tr><td>value</td><td>value </td><td>Yes</td></tr>
+	<tr><td>class </td><td>CSS Class</td><td>Yes</td></tr>
+</table>
+<pre class="brush: js;">  
+ 
+    //Example:	
+	
+	var bs	= zsi.bs.ctrl;				
+				
+	var _htmlCtrl1 = bs({name	:"status_id"	,type	:"hidden"	,value: "123"});
+	var _htmlCtrl2 = bs({name	:"status_name"	,value	:"active"});							 
+	var _htmlCtrl3 = bs({name	:"is_active"	,type	:"yesno"}); // this will display yes or no options.							 
+	var _htmlCtrl4 = bs({name	:"roles"		,type	:"select"});							 
+
+	
+</pre>
+
+<h2 id="button">bs  &#9658; button : <span class="func"> function({}) <span></h2>
+<p >Create bootstrap button control.</p>
+<table >
+	<tr><th>JSON Parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>name </td><td>Name of button. button name is corresponds to result icon.</td><td>No</td></tr>
+	<tr><td>text</td><td>Display value</td><td>No</td></tr>
+	<tr><td>type</td><td>button or submit </td><td>Yes</td></tr>
+	<tr><td>class </td><td>CSS Class</td><td>Yes</td></tr>
+	<tr><td>onClick </td><td>onClick Event</td><td>Yes</td></tr>	 	
+</table>
+<pre class="brush: js;">   
+    //Example:	
+		var btn                 = zsi.bs.button				
+		btn({name:"search",text:"search"});				 		 
+	
+</pre>
+
+<h1 >form:</h1>
+<h2 id="checkdate">form  &#9658; checkDate : <span class="func"> function(element, display_text) <span></h2>
+<p >Check date in forms of array</p>
+<table >
+	<tr><th>Parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>parameter 1</td><td>array of string : names of control.</td><td>No</td></tr>
+	<tr><td>parameter 2</td><td>array of string : display names. </td><td>No</td></tr>
+</table>
+
+<pre class="brush: js;">   
+    //Example:
+	
+			   $("form[name=frmList]").submit(function(){
+				  var ischeckDate = false;
+				  ischeckDate = zsi.form.checkDate(
+							  [   "p_tran_date"
+								 ,"p_accident_date"
+							  ]
+							  ,
+							  [
+								 "Transaction Date"
+								 ,"Accident Date"
+							  ]
+				  );
+				  return ischeckDate;
+			   }); 
+			   
+   
+
+</pre>
+
+
+<h2 id="checknum">form  &#9658; checkNumber : <span class="func"> function(event, notIncluded) <span></h2>
+<p >Returns only numeric number </p>
+<pre class="brush: js;">   
+    //Example: 
+
+	return zsi.form.checkNumber(event,'.,');
+				
+	
+</pre>
+
+<h2 id="checkMandatory">form  &#9658; checkMandatory : <span class="func"> function() <span></h2>
+<p>jQuery Validation: If one input is entered, others should become mandatory</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+			   $("#btnSave").click(function () {
+					if( zsi.form.checkMandatory()!==true) return false;
+				   
+				 });
+				 
+	 
+</pre>
+
+<h2 id="markMandatory">form  &#9658; markMandatory : <span class="func"> function({}) <span></h2>
+<p>mark object(s) with mandatory</p>
+
+<table>
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional</th></tr>
+	<tr><td>groupNames </td><td>Group of names.  </td><td>No</td></tr>
+	<tr><td>groupNames.names </td><td>An arrays of control names </td><td>No</td></tr>
+	<tr><td>groupNames.type </td><td>Type : S=Single entry, M=Multiple entry</td><td>Yes</td></tr>	
+	<tr><td>groupTitles </td><td>Group of labels/titles </td><td>No</td></tr>
+	<tr><td>groupTitles.titles </td><td>An arrays of labels/titles </td><td>No</td></tr>	 	
+</table>
+
+<pre class="brush: js;">   
+    //Example: 
+	
+			function markMandatory(){
+					zsi.form.markMandatory({       
+					  "groupNames":[
+							{
+								 "names" : [
+										"oem_vehicle_model_name"
+										,"model_year"
+										 ,"country_name"
+										 ,"market_id"
+										 ,"requested_date"
+										 ,"user_id"
+										 ,"is_active"
+										 ,"status_id"]
+										,"type":"S"
+							}
+						  
+					  ]      
+						 ,"groupTitles":[ 
+						 {"titles" :["Vehicle Model"
+						 ,"Model Year"
+						 ,"Origin Country"
+						 ,"Market"
+						 ,"Requested Date"
+						 ,"Requested By"
+						 ,"Active?"
+						 ,"Status"]}
+				  ]
+			   });
+			   
+			}
+
+</pre>
+
+
+<h2 id="showAlert">json  &#9658; showAlert : <span class="func"> function() <span></h2>
+<p >show alert </p>
+<pre class="brush: js;">   
+    //Example: 	
+	zsi.form.showAlert("alert");
+	//display "data has been saved.".
+</pre>
+
+<h2 id="displayLOV">form  &#9658; displayLOV : <span class="func"> function({}) <span></h2>
+<p >Display list of values</p>
+<table >
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>table</td><td>name or id of table</td><td>No</td></tr>
+	<tr><td>url </td><td>url of data </td><td>No</td></tr>
+	<tr><td>params </td><td>array of column names</td><td>No</td></tr>	
+	<tr><td>column_data</td><td>array of functions for displaying rows.</td><td>No</td></tr>
+	<tr><td>onComplete</td><td>fire on complete event.</td><td>No</td></tr>	 	
+</table>
+<pre class="brush: js;">   
+    //Example: 
+	zsi.form.displayLOV({
+		 table  : "#grid" 
+		,url   :  proc_url +  "storeLocSuppliesByStore?p=" + "0" + $("input[name='p_loc_id']").val() + "," + this.value
+		,params : ["loc_supply_id","supply_id"] 
+		,column_data: [
+			 function(d){ return d.supply_code; }
+			, function(d){ return d.unit_desc; } 
+			,function(d){ 
+				return bs({name:"reorder_level[]",value: displayClear(d.reorder_level)}); 
+			}
+			,function(d){ 
+				return bs({name:"max_level[]",value: displayClear(d.max_level)}); 
+			}  
+		]
+		,onComplete:function(){
+			$('#modalWindow').modal("show");
+		}
+	});
+			
+   
+</pre>
+
+
+<h2 id="getHighestZindex">zsi  &#9658; getHighestZindex : <span class="func"> function() <span></h2>
+<p >Get the highest value of z-index in a document.</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		var l_dp     = $('.datepicker');
+		l_dp.css("z-index",zsi.getHighestZindex() + 1);
+				   
+		   
+
+</pre>
+
+<h2 id="getOddEven">zsi  &#9658; getOddEven : <span class="func"> function() <span></h2>
+<p >Get the odd or even toggle value.</p>
+<pre class="brush: js;">   
+    //Example 1: 
+	
+				var tr ="&lt;tr class='"&nbsp; + zsi.getOddEven() +"'&gt;"/;
+								
+			//Example 2:
+			
+			 var h ="";
+						h += "&lt;tr class='"&nbsp; + zsi.getOddEven() + "'&gt;";
+							h += "&lt;td&gt;" +&nbsp; bs({name:"cb",type:"checkbox"}) +&nbsp; bs({name:"cb",type:"hidden",value: subDir + this }) + "&lt;/td&gt;";
+							h += "&lt;td&gt;&lt;a target=\"_blank\" " + _mouseevent + " href=\"" + base_url +&nbsp; "file/viewImage?fileName=" + subDir +&nbsp; this+ "\"&gt;" + this + "&lt;/a&gt;&lt;/td&gt;";
+						h += "&lt;/tr&gt;";
+
+						
+</pre>
+
+<h2 id="getTableLayoutsObjects">zsi &#9658;  getTableLayoutsObjects : <span class="func"> function(code, callBackFunction) <span></h2>
+<p >Display the table with records.</p>
+<table >
+	<tr><th>Parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr>
+	<tr>
+		<td>Parameter 1</td><td>Code</td><td>No</td>
+	</tr>
+		<td>Parameter 2</td><td>call back function or onComplete </td><td>No</td>
+	</tr>
+	
+</table>
+<pre class="brush: js;">   
+    //Example: 
+	
+		 zsi.getTableLayoutsObjects("users",function(params){
+			
+		 });
+
+</pre>
+
+<h2 id="getUrlParamValue">zsi &#9658;  getUrlParamValue : <span class="func"> function(parameterName) <span></h2>
+<p >Get the value  of a specific parameter.</p>
+<pre class="brush: js;">   
+    //Example: 
+
+	var projectId = zsi.getUrlParamValue("projectId");
+
+</pre>
+
+<h2 id="init">zsi &#9658;  init : <span class="func"> function({}) <span></h2>
+<p >Set the zsi library configuration.</p>
+<table >
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr>
+		<td></td><td></td><td></td>
+	</tr>
+</table>
+
+<pre class="brush: js;">   
+    //Example: 
+	
+		zsi.init	({
+				  baseURL : base_url
+				 ,errorUpdateURL    :  base_url + "sql/logerror"
+				 ,sqlConsoleName    :  "runsql"
+				 ,excludeAjaxWatch  :  ["checkDataExist","searchdata"]
+				 ,getDataURL        :  base_url + "data/getRecords"
+		 });
+	 
+</pre>
+
+<h2 id="initDatePicker">zsi &#9658;  initDatePicker : <span class="func"> function() <span></h2>
+<p >open an interactive calendar</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+			zsi.initDatePicker  = function(){
+				   var inputDate =$('input[id*=date]').not("input[type='hidden']");
+				   inputDate.attr("placeholder","mm/dd/yyyy");
+				   inputDate.keyup(function(){      
+				 if(this.value.length==2 || this.value.length==5 ) this.value += "/";
+		   });
+   
+   
+	 
+</pre>
+
+
+
+<h2 id="toggleExtraRow">zsi &#9658;  toggleExtraRow : <span class="func"> function( {} ) <span></h2>
+<p >To toggle row into expand and collapse.</p>
+<table>
+	<tr><th>JSON parimeters</th><th>Description</th><th>Optional</th></tr>
+	<tr><td>Parameter 1 </td><td>object</td><td>No</td>
+	<tr><td>Parameter 2</td><td>parent id</td><td>No</td></tr>
+	<tr><td>Parameter 3</td><td>call back function or onLoad	</td><td>no</td></tr>
+	
+</table>
+<pre class="brush: js;">   
+    //Example: 
+ 
+		     zsi.toggleExtraRow({
+         object     : o
+        ,parentId   : id
+        ,onLoad : function($grid){
+				 $grid.dataBind({
+                 url        : execURL + "procurement_detail_sel @procurement_id="+ id
+                 //,width     : $(document.width) -100
+                ,dataRows   : [
+                		 {text  : "Item No."                , name  : "item_no"                     , width : 100           , style : "text-align:left;"}
+                		,{text  : "Part No."                , name  : "part_no"                     , width : 100           , style : "text-align:left;"}
+                		,{text  : "National Stock No."      , name  : "national_stock_no"           , width : 150           , style : "text-align:left;"}
+                		,{text  : "Item Description"        , name  : "item_description"            , width : 250           , style : "text-align:left;"}
+            });
+			]
+	 
+</pre>
+
+
+<h2 id="groupByColumnIndex">json &#9658;  groupByColumnIndex : <span class="func"> function() <span></h2>
+<p >groupByColumnIndex</p>
+<pre class="brush: js;">   
+    //Example: 
+		
+		
+	 
+</pre>
+
+
+<h2 id="clearPaging">page &#9658;  clearPaging : <span class="func"> function() <span></h2>
+<p >clears all paging on specific grid</p>
+<pre class="brush: js;">   
+    //Example: 
+	zsi.page.clearPaging();
+	 
+</pre>
+
+<h2 id="DisplayRecordPage">page &#9658; DisplayRecordPage: <span class="func"> function() <span></h2>
+<p >Display the page status.</p>
+<table >
+	<tr><th>parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr>
+		<td>Parameter 1</td><td>Page No</td><td>No</td>
+	</tr>
+	<tr>
+		<td>Parameter 2</td><td>Rows</td><td>No</td>
+	</tr>
+	<tr>
+		<td>Parameter 3</td><td>No. of Records</td><td>No</td>
+	</tr>
+</table>
+<pre class="brush: js;">   
+    //Example: 
+	 zsi.page.DisplayRecordPage(1,10,100);
+</pre>
+
+<h2 id="getCheckBoxesValues">table &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
+<p >getCheckBoxesValues</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	 var _ti =  zsi.table.getCheckBoxesValues("#grid input[name='cb']:checked");
+    
+    
+	 
+</pre>
+
+<h2 id="setCheckBox">table &#9658; setCheckBox : <span class="func"> function() <span></h2>
+<p >setCheckBox</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="sort">table &#9658; sort : <span class="func"> function() <span></h2>
+<p >sort</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="setValIfNull">zsi &#9658; setValIfNull : <span class="func"> function() <span></h2>
+<p >Set the specific value if it is Null</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		var svn =  zsi.setValIfNull;
+    
+	  bs({name:"category_id",type:"hidden",value: svn (d,"category_id")})
+	  
+    
+	 
+</pre>
+
+<h2 id="ShowHideProgressWindow">zsi &#9658; ShowHideProgressWindow : <span class="func"> function() <span></h2>
+<p >ShowHideProgressWindow</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	
+	     
+    
+    
+	 
+</pre>
+
+<h2 id="ShowErrorWindow">zsi &#9658; ShowErrorWindow : <span class="func"> function() <span></h2>
+<p >ShowErrorWindow</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="initInputTypesAndFormats">zsi &#9658; initInputTypesAndFormats : <span class="func"> function() <span></h2>
+<p >initInputTypesAndFormats</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		zsi.initInputTypesAndFormats();
+    
+	 
+</pre>
+
+<h2 id="strExist">zsi &#9658; strExist : <span class="func"> function() <span></h2>
+<p >strExist</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+
+<h2 id="getQueryValue">url &#9658; getQueryValue : <span class="func"> function() <span></h2>
+<p >getQueryValue</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="removeQueryItem">url &#9658; removeQueryItem : <span class="func"> function() <span></h2>
+<p >removeQueryItem</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="addClickHighlight">JQuery Extended Functions &#9658; addClickHighlight : <span class="func"> function() <span></h2>
+<p >addClickHighlight</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     tbl.addClickHighlight();
+    
+	 
+</pre>
+
+<h2 id="center">JQuery Extended Functions &#9658; center : <span class="func"> function() <span></h2>
+<p >center</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="centerWidth">JQuery Extended Functions &#9658; centerWidth : <span class="func"> function() <span></h2>
+<p >centerWidth</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="checkValueExists">JQuery Extended Functions &#9658; checkValueExists : <span class="func">  function({}) <span></h2>
+<p >check the specific Value if it is already existed  </p>
+<table >
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr><td>code</td><td> Reference code of table/view</td><td>No</td></tr>
+	<tr><td>colName</td><td>Column name where to search a keyword</td><td>No</td></tr>
+	<tr><td>isNotExistShow</td><td> (true/false) value, a reverse option in order to show none exists data.</td><td>Yes</td></tr>	
+	<tr><td>message</td><td>alert message "data not exists".</td><td>Yes</td></tr>
+	<tr><td>procedureName</td><td>Used to customized default message. </td><td>Yes</td></tr>	 	
+	
+	<tr><td>isCheckOnDb</td><td>(true/false) value - allow to check on database. </td><td>Yes</td></tr>	 
+
+	<tr><td>onHide</td><td> fires after message is shown </td><td>Yes</td></tr>	 
+	
+	
+</table>
+
+<pre class="brush: js;">   
+    
+     //example 1:
+                 //This example is for data already exist.
+
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        code:"ref-0009"
+                       ,colName:"origin_name"
+                   });
+                   
+                                    
+                 
+                 //example 2:
+                 //This example is for the NOT exist data.
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        code:"ref-0009"
+                       ,colName:"origin_name"
+                       ,isNotExistShow :  true
+                       ,message : "data not exists"
+                   });
+
+
+
+                //example 3:
+                //This example is to alter the default procedure name, just add a property "procedureName".
+                   $(".no-data input[name='origin_name']").checkValueExists({
+                        procedureName : "customStoredProcedureCheckValueExists"
+                       ,code:"ref-0009"
+                       ,colName:"origin_name"
+                   });
+				   
+				   
+				//example 4:   
+            $(".no-data input[name='part_no']").checkValueExists({
+                    code:"ref-0023"
+                    ,isNotExistShow : false 
+                    ,isCheckOnDb : false 
+                    ,message : "data already exist"
+                    ,onHide: function($zRow){
+                        //clear values
+                        $zRow.find("#item_code_id").val("");
+                        $zRow.find("#national_stock_no").val("");
+                        $zRow.find("#item_name").val("");
+                    }
+                
+            });				   
+				   
+	 
+</pre>
+
+<h2 id="clearGrid">JQuery Extended Functions &#9658; clearGrid : <span class="func"> function() <span></h2>
+<p >Clear all data on grid</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("#grid").clearGrid();
+    
+	 
+</pre>
+
+<h2 id="createZoomCtrl">JQuery Extended Functions &#9658; createZoomCtrl : <span class="func"> function() <span></h2>
+<p >Create a function to zoom in (+) and (-) out on an image </p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    .find(".zoomPanel").createZoomCtrl();
+    
+	 
+</pre>
+
+<h2 id="disableButton">JQuery Extended Functions &#9658; disableButton : <span class="func"> function() <span></h2>
+<p >Disable Button / Remove mouse pointer </p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    var _chkTLen = checkableTree.treeview('getChecked').length;
+    var _cbLen  = $("#vehicleModelGrid").find("input[name='cb']:checked").length;
+ 	
+    if(_chkTLen > 0 && _cbLen > 1){
+        $("#btnReport").css("pointer-events","inherit")      
+        .css("cursor","")      
+        .css("color","#fff"); 
+    }
+    else{
+        $("#btnReport").css("pointer-events","none")      
+        .css("cursor","default")   
+        .css("color","grey");       
+            
+    }
+    
+	 
+</pre>
+
+<h2 id="mapFunction">JQuery Extended Functions &#9658; mapFunction : <span class="func"> function() <span></h2>
+<p >Map function</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+program_ids = $("#tblPPrograms" ).find( ":checkbox:checked" ).map(function() { 
+                  return this.value
+                  ;}).get().join("|"); 
+    
+	 
+</pre>
+
+<h2 id="multipleSelect">JQuery Extended Functions &#9658; multipleSelect : <span class="func"> function() <span></h2>
+<p >Multiple Select Concatenation</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    program_ids     = ($program_id.val() ? $program_id.val().toString().replace(/,/g, "|") : "");
+    
+	 
+</pre>
+
+<h2 id="saveNotUsingTT">JQuery Extended Functions &#9658; saveNotUsingTT : <span class="func"> function() <span></h2>
+<p >Save without TT</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+$("#btnSaveNotes").click(function (){
+    $.post(
+         base_url + "sql/exec?p=project_menu_notes_upd" 
+         + " @menu_id=" + leftMenuId 
+         + ",@notes='" + escape( $("#notes").find("textarea").val() )  + "'"
+         + ",@project_id=" + projectId
+         
+        ,function(data){
+            displayNotes();
+            zsi.form.showAlert("alert");
+    });        
+}); 
+    
+	 
+</pre>
+
+<h2 id="selectOptionUsingSEL">JQuery Extended Functions &#9658; selectOptionUsingSEL : <span class="func"> function() <span></h2>
+<p >Select Option using Sel</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+   $program_id.change(function(){
+        if(this.value){
+            var val = $program_id.val();
+            program_ids = (val ? val.toString(): "");
+            $model_year.dataBind({ url : execURL + "model_years_sel @program_ids='" + program_ids + "'"
+                ,required:true 
+                ,text  : "model_year"
+                ,value : "model_year"
+            });
+        }
+    });
+   
+	 
+</pre>
+
+<h2 id="tabIndexSwitch">JQuery Extended Functions &#9658; tabIndexSwitch : <span class="func"> function() <span></h2>
+<p >Switch Tab Index</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+ var $li = $("#tabsArea ul li.active");
+    var i = $li.index();
+    switch(i){
+        case 0: submitPMYs();break;
+        case 1: submitPHF();break;
+        case 2: submitProgramDREs();break;
+        case 3: submitOPM();break;
+        default:break;
+    }
+   
+	 
+</pre>
+
+<h2 id="dataBind">JQuery Extended Functions &#9658; dataBind: <span class="func"> function( {} ) <span></h2>
+<p >This function is used to display the list of records.</p>
+
+<h2 >dataBind for Grid/Table, you can also use dataBindGrid function: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description 										</th><th>Optional</th></tr>
+	<tr><td>url 				</td><td>Url of data 										</td><td>Yes</td></tr>
+	<tr><td>rows 				</td><td>Array of data objects. No need to include "url" parameter 	</td><td>Yes</td></tr>
+	<tr><td>blankRowsLimit		</td><td>number of rows. this is only for new entry. 		</td><td>Yes</td></tr>
+	<tr><td>width 				</td><td>Width of table										</td><td>Yes</td></tr>
+	<tr><td>height 				</td><td>Height of table 									</td><td>Yes</td></tr>	
+	<tr><td>selectorType 		</td><td>Types of Selectors : checkbox or radio				</td><td>Yes</td></tr>
+	<tr><td>dataRows 			</td><td>Collections of zsi.bs controls  					</td><td>No</td></tr>	 
+	<tr><td>onEachComplete 		</td><td>Fires on each row completed						</td><td>Yes</td></tr>	 
+	<tr><td>onComplete 			</td><td>Fires on rows completed							</td><td>Yes</td></tr>	 
+	<tr><td>isAsync 			</td><td>Asynchronous option : true or false				</td><td>Yes</td></tr>	 
+	<tr><td>toggleMasterKey		</td><td>Used to create master and detail table 			</td><td>Yes</td></tr>	 		
+</table>
+<h2 >onEachComplete({}) - return object and parameters: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>			</tr>
+	<tr><td>this 			</td><td> return object of row</td>		</tr>
+	<tr><td>row Item 			</td><td> JSON Data</td>			</tr>
+	
+</table>
+<h2 >onComplete({}) - return object and parameters:</h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>				</tr>
+	<tr><td>this 				</td><td> return object of grid </td>	</tr>
+	<tr><td>params 				</td><td> passed parameters </td>		</tr>
+	<tr><td>data  or rows data				</td><td>JSON Data</td>		</tr>	
+	
+</table>
+<pre class="brush: js;"> 
+ //Example 1: 
+ 
+$(&quot;#grid&quot;).dataBind({
+         toggleMasterKey    : &quot;parent_id&quot;
+        ,height             : 400 
+        ,width              : $(document).width() - 25
+        ,url                : execURL + &quot;myprocedure_sel @date_from=&quot;+ (dateFrom ? &quot;&#39;&quot; + dateFrom + &quot;&#39;&quot; : null)
+                                      + &quot;,@date_to=&quot;+ (dateTo ? &quot;&#39;&quot; + dateTo + &quot;&#39;&quot; : null)
+                                      + &quot;,@report_type_id=&quot;+ (rTypeId ? rTypeId  : null)
+        ,dataRows : [
+                {text  : &quot;&amp;nbsp;&quot;		, width : 25	, style : &quot;text-align:left;&quot;
+                     ,onRender : function(d){
+                          return &quot;&lt;a  href=&#39;javascript:void(0);&#39; onclick=&#39;displayDetail(this,&quot;+ d.parent_id +&quot;);&#39;&gt;&lt;span class=&#39;glyphicon glyphicon-collapse-down&#39; style=&#39;font-size:12pt;&#39; &gt;&lt;/span&gt; &lt;/a&gt;&quot;; 
+                    }
+                 }
+        		,{text  : &quot;Supplier Name&quot;           , name  : &quot;supplier_name&quot;           , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;no_items&quot;                , name  : &quot;no_items&quot;                , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_ordered_qty&quot;       , name  : &quot;total_ordered_qty&quot;       , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_balance_qty&quot;       , name  : &quot;total_balance_qty&quot;       , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;total_amount&quot;            , name  : &quot;total_amount&quot;            , width : 150           , style : &quot;text-align:left;&quot;}
+        		,{text  : &quot;status_name&quot;             , name  : &quot;status_name&quot;             , width : 150           , style : &quot;text-align:left;&quot;}
+        		
+	    ]  
+	    ,onEachComplete: function(rowData){
+	     
+            console.log("row", this);	         
+            console.log("row index", this.index());	         
+            console.log("row Item",rowItem);	         
+            console.log("row Item Data",rowItem.data);	         
+    
+	         
+	    }
+        ,onComplete:function(o){
+			console.log("grid object",this);
+			console.log("parameters",o.params);
+			console.log("all data",o.data);
+            console.log(&quot;display completed.&quot;)
+        }      
+
+    });
+}
+
+function displayDetail(o,id){
+    zsi.toggleExtraRow({
+         object     : o
+        ,parentId   : id
+        ,onLoad : function($grid){ 
+           
+                $grid.dataBind({
+                     url: execURL + &quot;my_detail_sel&quot; 
+                    ,height:100 
+                    ,width : $(document).width() - 49
+                    ,dataRows : [
+                    		 {text  : &quot;Item Name&quot;   , name  : &quot;item_name&quot;        , width : 350  , style : &quot;text-align:left;&quot;}
+                    		,{text  : &quot;status_name&quot; , name  : &quot;status_name&quot;      , width : 150  , style : &quot;text-align:left;&quot;}
+                    		
+            	    ]  
+                  
+                });            
+        }
+    
+    });
+}
+
+//Example 2:
+
+$(&quot;#grid&quot;).dataBind({
+	     url   : procURL + &quot;users2_sel @filter_user_id=&quot; + user_id
+        ,width          : $(document).width() - 200
+	    ,height         : $(document).height() - 250
+	    ,selectorType   : &quot;checkbox&quot;
+        ,blankRowsLimit :5
+        ,isPaging : true
+        ,dataRows       :[
+     		 { text:&quot;User&quot;          , width:260     , style:&quot;text-align:center;&quot;      ,type:&quot;select&quot;     ,name:&quot;user_id&quot;    ,sortColNo: 0 }	 
+    		,{ text:&quot;Role&quot;          , width:200     , style:&quot;text-align:left;&quot;        ,type:&quot;select&quot;     ,name:&quot;role_id&quot;    }
+    		,{ text:&quot;Logon&quot;          , width:150     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return &quot;&lt;input type=&#39;hidden&#39; name=&#39;password&#39; value=&#39;&quot; + svn(d, &quot;password&quot;) + &quot;&#39;&gt;&quot; + svn(d, &quot;logon&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Rank&quot;          , width:150     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;rankDesc&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Position&quot;      , width:170     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;position&quot;);
+    		    }
+    		}
+    		,{ text:&quot;Organization&quot;  , width:200     , style:&quot;text-align:left;&quot;
+    		    ,onRender: function(d){
+    		        return svn(d, &quot;organizationName&quot;);
+    		    }
+    		}
+	    ]
+
+        ,onComplete: function(){
+           
+            $(&quot;select[name=&#39;user_id&#39;]&quot;).dataBind({
+                  url: base_url + &quot;selectoption/code/notUsers&quot;
+                , isUniqueOptions:true
+                , onComplete: function(){
+                    $(&quot;select[name=&#39;user_id&#39;]&quot;).setUniqueOptions();
+                }
+            });  
+            
+             $(&quot;select[name=&#39;user_id&#39;]&quot;).change(function(){
+                var o = $(this);
+                var selVal =o.attr(&quot;selectedvalue&quot;);
+                var zRow = o.parent().parent();
+               
+                if(typeof selVal==ud){
+                    $.get(execURL + &quot;select dbo.createUserLogon(&quot; + o.val() + &quot;) as username&quot;,function(data){
+                        $.get(base_url + &quot;account/getnewpassword?pwd=&quot; +   data.rows[0].username,function(data){
+                            zRow.find(&quot;[name=&#39;password&#39;]&quot;).val(data);
+                        });
+                   });
+                }
+             });
+
+            $(&quot;select[name=&#39;plant_id&#39;]&quot;).dataBind( &quot;plants&quot;);
+            $(&quot;select[name=&#39;role_id&#39;]&quot;).dataBind({
+                url:  getOptionsURL(&quot;roles&quot;)
+                ,onComplete:function(){
+                    $(&quot;select[name=&#39;role_id&#39;]&quot;).change();
+                }
+            });
+            markUserMandatory();
+            $(&quot;.no-data input[name=&#39;logon&#39;]&quot;).checkValueExists({code:&quot;adm-0002&quot;,colName:&quot;logon&quot;});
+     
+        }
+        
+    });  
+
+
+</pre>
+
+
+<h2 >dataBind for Select options or DropDownList: </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description 					</th><th>Optional</th></tr>
+	<tr><td>url 				</td><td>Url of data 					</td><td>No</td></tr>
+	<tr><td>text 				</td><td>Display Text 					</td><td>Yes</td></tr>	
+	<tr><td>value  				</td><td>Value							</td><td>Yes</td></tr>
+	<tr><td>selectedValue 		</td><td>set default value				</td><td>Yes</td></tr>	
+	<tr><td>isUniqueOptions 	</td><td>set options display as unique  </td><td>Yes</td></tr>
+	<tr><td>required 			</td><td>Value							</td><td>Yes</td></tr>
+	<tr><td>onComplete 			</td><td>Fires when data is loaded	</td><td>Yes</td></tr>	 
+	<tr><td>onChange 			</td><td>Fires when value is changed </td><td>Yes</td></tr>	
+</table>
+
+<pre class="brush: js;">   
+    //Example1: 
+
+	 $("select[name='category_id']").dataBind("categories");   
+
+	//Example2: 
+
+	 $("select[name='category_id']").dataBind({ url 
+		 url : procURL + "categories_sel?category_id=123"
+		,text : "category_name"
+		,value: "category_id"
+		//,selectedValue  :  123
+		//,required : true /false
+		//,isUniqueOptions : : true /false
+		//onComplete : function(){}		
+	 });   
+	 
+</pre>
+<h2 >onChange({}) - return object and parameters:  </h2>
+<table>
+	<tr><th>JSON Data parameters</th><th>Description</th>							<th>Optional</th></tr>
+	<tr><td>index 				</td><td> Index value of select element</td>		<td> </td></tr>
+	<tr><td>data 				</td><td>JSON Data</td>							<td> </td></tr>	
+	<tr><td>Row </td>			<td>zsiGrid row</td>								<td> </td></tr>	
+	
+</table>
+<pre class="brush: js;">   
+ $serial_no.dataBind({ 
+                 url : execURL + "dd_aircraft_items_sel @aircraft_info_id="+ (aircraft_id ? aircraft_id : null)
+                ,text: "serial_no"
+                ,value: "serial_no"
+                ,onChange  : function(info){
+                    var i = info.index - 1; // minus 1 because empty <option> element is not included.
+                    var d =  info.data; //shorten text to eliminate series of duplicated words.
+                    
+                    var _row = info.row;
+                    var  _partNo        = ""
+                        ,_item_name     = "" 
+                      //,_tmp variable  = "" 
+            
+                    if(i > -1){ //check if selected index is out of record index. 
+                        _partNo     = d[i].part_no ; //set data based on record index value 
+                        _item_name  = d[i].item_name;
+                        //...
+                    }
+                    //display temporary data 
+                    _row.find("#part_no").html(_partNo);  
+                    _row.find("#item_name").html( _item_name);
+                }
+            });
+</pre>
+
+
+<h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function({}) <span></h2>
+<p >Delete specific or selected data</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    zsi.form.deleteData({
+         code       : "ref-0001"
+        ,onComplete : function(data){
+                        displayRecords("");
+                      }
+    });   
+	 
+</pre>
+
+<h2 id="expandCollapse">JQuery Extended Functions &#9658; expandCollapse : <span class="func"> function({}) <span></h2>
+<p >expandCollapse</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+	$("a[name='aSpecsPropertyAtt']").expandCollapse({
+		onInit  : function(obj){
+			attrId = $(obj).attr("attribute_id");
+			return "<div id='data" + attrId + "'> </div>";
+		}
+	   ,onAfterInit: function(){
+			displayDetail(attrId);
+			
+		}
+  
+	});
+    
+	 
+</pre>
+
+<h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function({}) <span></h2>
+<p >fillSelect</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("select[name='menu_type']").fillSelect({
+                       data             : menu_types
+                      ,selectedValue    : "M"
+                });
+    
+	 
+</pre>
+
+<h2 id="getCheckBoxesValues">JQuery Extended Functions &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
+<p >check value of check box</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     var _files = $("input[name='cb']:checked").getCheckBoxesValues();
+    
+	 
+</pre>
+
+<h2 id="jsonSubmit">JQuery Extended Functions &#9658; jsonSubmit : <span class="func"> function({}) <span></h2>
+<p >jsonSubmit</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("#frm").jsonSubmit({
+              url: base_url + "update"
+	 });
+    
+	 
+</pre>
+
+<h2 id="loadData">JQuery Extended Functions &#9658; loadData : <span class="func"> function({}) <span></h2>
+<p >loadData</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+       $("#grid").loadData({      
+        url : procURL + "plants_sel @is_active='N'" 
+     }); 
+	 
+</pre>
+
+<h2 id="loadData2">JQuery Extended Functions &#9658; loadData2 : <span class="func"> function({}) <span></h2>
+<p >loadData2</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+		
+	
+ 
+    
+	 
+</pre>
+
+<h2 id="serializeExclude">JQuery Extended Functions &#9658; serializeExclude : <span class="func"> function(arrayNames) <span></h2>
+<p >serializeExclude</p>
+<pre class="brush: js;">   
+    //Example: 
+	 $("#myform").serializeExclude(["field1_id","field2_id","field3_id"])
+</pre>
+
+<h2 id="setEventOnTRClickForSelection">JQuery Extended Functions &#9658; setEventOnTRClickForSelection : <span class="func"> function() <span></h2>
+<p >setEventOnTRClickForSelection</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+     $("#modelyearGrid").setEventOnTRClickForSelection();
+    
+	 
+</pre>
+
+<h2 id="setCheckEvent">JQuery Extended Functions &#9658; setCheckEvent : <span class="func"> function(selector) <span></h2>
+<p >set event on check box when it is click</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+      var jCBName = "#modelyearGrid input[name='cb']";
+            $("#cbFilter1").setCheckEvent(jCBName);
+    
+	 
+</pre>
+
+<h2 id="setIdIfChecked">JQuery Extended Functions &#9658; setIdIfChecked : <span class="func"> function(value, elementId) <span></h2>
+<p >setIdIfChecked</p>
+<pre class="brush: js;">   
+    //Example: 
+	  
+    $("#" + tblSpecsPropNew).setIdIfChecked(id,"specs_id");  
+	 
+</pre>
+
+<h2 id="toJSON">JQuery Extended Functions &#9658; googleSearch : <span class="func"> function({}) <span></h2>
+<p >Google Search</p>
+<pre class="brush: js;">   
+//Example: 
+	
+$("#btnSearch").click(function(){
+   var keyword = $("#vehicle_model_id").val();
+   
+   $(".rightNav").showPopup({
+		 title : ""
+		,body  : "<h4>Search Results :</h4><div class='col-sm-12' id='searchResults'></div>"
+	});
+	
+   displaySearch(keyword);
+});
+
+function displaySearch(keyword){
+$("#searchResults").empty();
+    
+$.get(procURL + "elect_cdr_search_sel @keyword='" + keyword + "',@project_id_param='48',@specs_id_param='" + projectId + "'"
+,function(data){
+	var d = data.rows;
+	var h = "";
+	
+	for(var i=0; i < d.length; i++){
+		h   += '<div class="media">'
+			+    '<div class="media-left">'
+			+       '<a href="#">'
+			+           '<h4>' + d[i].resultDesc + '</h4>'
+			+       '</a>'
+			+    '</div>'
+			+    '<div class="media-body">'
+			+      '<span class="media-heading">'+ d[i].projectName  +' | '+ d[i].specsName +'</span>'
+			+    '</div>'
+			+  '</div>';
+	}
+		$("#searchResults").html(h);
+	});
+}
+
+	 
+</pre>
+
+
+<h2 id="setUniqueOptions">JQuery Extended Functions &#9658; setUniqueOptions : <span class="func"> function() <span></h2>
+<p >setUniqueOptions</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    
+    
+	 
+</pre>
+
+<h2 id="showPopup">JQuery Extended Functions &#9658; showPopup : <span class="func"> function({}) <span></h2>
+<p >showPopup</p>
+<pre class="brush: js;">   
+    //Example: 
+	
+    $("#reports").showPopup({
+             title : bName
+            ,body  : body
+        });
+    
+	 
+</pre>
+
+<h2 id="toJSON">JQuery Extended Functions &#9658; toJSON : <span class="func"> function({}) <span></h2>
+<p >Convert HTML Elements to JSON format</p>
+<pre class="brush: js;">   
+    //Example: 
+	 
+    
+    
+	 
+</pre>
+ 
+</div>
+</body>
+</html>
