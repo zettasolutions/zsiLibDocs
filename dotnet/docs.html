@@ -975,13 +975,32 @@ $(&quot;#grid&quot;).dataBind({
 <h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function({}) <span></h2>
 <p >fillSelect</p>
 <pre class="brush: js;">   
-    //Example: 
+
+    //Example 1: 	
+	var menu_types = [
+		 {value:1, text:"menu 1"}
+		,{value:2, text:"menu 2"}
+		,{value:3, text:"menu 3"}
+	];
 	
-     $("select[name='menu_type']").fillSelect({
-                       data             : menu_types
-                      ,selectedValue    : "M"
-                });
-    
+	$("select[name='menu_type']").fillSelect({
+		   data             : menu_types
+		  ,selectedValue    : "M"
+	});
+
+    //Example 2 (customized text and value): 
+	
+	var menu_types = [
+		 {menu_id:1, menu_name:"menu 1",..,..}
+		,{menu_id:2, menu_name:"menu 2",..,..}
+		,{menu_id:3, menu_name:"menu 3",..,..}	 
+	];
+	
+    $("select[name='menu_type']").fillSelect({
+		   data         : menu_types
+		  ,value		: "menu_id"
+		  ,text			: "menu_name"					  					  
+    });
 	 
 </pre>
 
