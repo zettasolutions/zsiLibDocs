@@ -941,14 +941,27 @@ $(&quot;#grid&quot;).dataBind({
 <h2 id="deleteData">JQuery Extended Functions &#9658; deleteData : <span class="func"> function({}) <span></h2>
 <p >Delete specific or selected data</p>
 <pre class="brush: js;">   
-    //Example: 
-	
-    zsi.form.deleteData({
-         code       : "ref-0001"
-        ,onComplete : function(data){
-                        displayRecords("");
-                      }
-    });   
+    //Example1 :  
+	//Delete Data function using tableCode
+     $("#grid").deleteData({
+		tableCode: "sys-0008" //code change to tableCode
+		,onComplete : function(d){
+			//your code here .....
+		}
+	 }) 
+
+	//Example2 :
+	//Delete data function with parameters using sqlCode
+	$("#grid").deleteData({
+		sqlCode: "S1408" 
+		,parameters:{
+			client_id:1  
+		}
+		,onComplete : function(d){
+			//your code here .....
+		}
+	 }) 
+
 	 
 </pre>
 
