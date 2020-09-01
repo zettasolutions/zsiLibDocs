@@ -985,6 +985,42 @@ $(&quot;#grid&quot;).dataBind({
 	 
 </pre>
 
+
+<h2 id="viewImage">JQuery Extended Functions &#9658; viewImage : <span class="func"> function({}) <span></h2>
+<p >viewImage</p>
+<pre class="brush: js;"> 
+	" this is how we create a view image "
+    //Example:  
+	//you can simply create a code like this in your hover event function
+		var image_url = base_url + "dbimagebyclient/e247/" + _clientId + "/" + app.svn(d,"id") + "?ts=" + new Date().getTime(); 
+	
+	//test to view image in a url
+		"http://zsi-server:800/dbimagebyclient/E247/0/1 " 
+	
+	note: 
+	  "adding a time in a code is required to refresh an image "
+    
+	 
+</pre>
+
+
+<h2 id="zsiExecuteCmd">JQuery Extended Functions &#9658; zsiExecuteCmd : <span class="func"> function({}) <span></h2>
+<p >zsiExecuteCmd</p>
+<pre class="brush: js;"> 
+	//I recommend using executeCmd in order for us to protect our data from spying and sql injections.
+
+	 zsi.executeCmd({
+           sqlCode : "D1214"
+          ,parameters: {
+              company_id : 1
+          }
+         ,onComplete: function(data){
+            console.log("response data",data);   
+         }
+         
+     });
+</pre>
+
 <h2 id="fillSelect">JQuery Extended Functions &#9658; fillSelect : <span class="func"> function({}) <span></h2>
 <p >fillSelect</p>
 <pre class="brush: js;">   
