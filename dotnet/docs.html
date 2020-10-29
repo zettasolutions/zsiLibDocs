@@ -251,6 +251,7 @@
 		 zsi.getTableLayoutsObjects("users",function(params){
 			
 		 });
+		 
 
 </pre>
 
@@ -260,16 +261,30 @@
     //Example: 
 
 	var projectId = zsi.getUrlParamValue("projectId");
-
+	
+	
 </pre>
 
 <h2 id="init">zsi &#9658;  init : <span class="func"> function({}) <span></h2>
-<p >Set the zsi library configuration.</p>
+<p >Set the initial configuration for zsi library.</p>
 <table >
 	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
 	<tr>
-		<td></td><td></td><td></td>
+	<tr>
+		<td>BaseURL</td><td>root API url</td><td>Yes</td>
 	</tr>
+		<td>errorUpdateURL</td><td>API url</td><td>Yes</td>
+	</tr>
+	</tr>
+		<td>sqlConsoleName</td><td>SQL console name</td><td>Yes</td>
+	</tr>
+	</tr>
+		<td>excludeAjaxWatch</td><td>Array of string that excluded from ajax watch</td><td>Yes</td>
+	</tr>
+	</tr>
+		<td>getDataURL</td><td>API url</td><td>Yes</td>
+	</tr>
+	
 </table>
 
 <pre class="brush: js;">   
@@ -286,7 +301,7 @@
 </pre>
 
 <h2 id="initDatePicker">zsi &#9658;  initDatePicker : <span class="func"> function() <span></h2>
-<p >open an interactive calendar</p>
+<p >Initiates bootstrap calendar</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -333,18 +348,8 @@
 </pre>
 
 
-<h2 id="groupByColumnIndex">json &#9658;  groupByColumnIndex : <span class="func"> function() <span></h2>
-<p >groupByColumnIndex</p>
-<pre class="brush: js;">   
-    //Example: 
-		
-		
-	 
-</pre>
-
-
 <h2 id="clearPaging">page &#9658;  clearPaging : <span class="func"> function() <span></h2>
-<p >clears all paging on specific grid</p>
+<p >Clears all paging on specific grid</p>
 <pre class="brush: js;">   
     //Example: 
 	zsi.page.clearPaging();
@@ -371,36 +376,15 @@
 </pre>
 
 <h2 id="getCheckBoxesValues">table &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
-<p >getCheckBoxesValues</p>
+<p >returns the values of the checkbox in an Array format.</p>
 <pre class="brush: js;">   
     //Example: 
 	
 	 var _ti =  zsi.table.getCheckBoxesValues("#grid input[name='cb']:checked");
-    
-    
-	 
+    	 
 </pre>
 
-<h2 id="setCheckBox">table &#9658; setCheckBox : <span class="func"> function() <span></h2>
-<p >setCheckBox</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
-
-<h2 id="sort">table &#9658; sort : <span class="func"> function() <span></h2>
-<p >sort</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
-
+ 
 <h2 id="setValIfNull">zsi &#9658; setValIfNull : <span class="func"> function() <span></h2>
 <p >Set the specific value if it is Null</p>
 <pre class="brush: js;">   
@@ -415,95 +399,99 @@
 </pre>
 
 <h2 id="ShowHideProgressWindow">zsi &#9658; ShowHideProgressWindow : <span class="func"> function() <span></h2>
-<p >ShowHideProgressWindow</p>
+<p >Show/Hide progress window </p>
+<table >
+	<tr><th>parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr>
+		<td>Boolean</td><td>True/False</td><td>No</td>
+	</tr>
+</table>
 <pre class="brush: js;">   
     //Example: 
-	
-	
-	     
-    
-    
+	 zsi.ShowHideProgressWindow(true)	     
 	 
 </pre>
 
 <h2 id="ShowErrorWindow">zsi &#9658; ShowErrorWindow : <span class="func"> function() <span></h2>
-<p >ShowErrorWindow</p>
+<p >displays error message window</p>
 <pre class="brush: js;">   
     //Example: 
-	
-    
-    
-	 
+	zsi.ShowErrorWindow();
+     
 </pre>
 
 <h2 id="initInputTypesAndFormats">zsi &#9658; initInputTypesAndFormats : <span class="func"> function() <span></h2>
-<p >initInputTypesAndFormats</p>
+<p >initiates input/text elements that has "numeric" and "format-decimal" style class </p>
 <pre class="brush: js;">   
-    //Example: 
+
+    //html code : 
+	<input type="text" class="numeric" />
+	<input type="text" class="format-decimal" />
 	
-		zsi.initInputTypesAndFormats();
+	//js code:
+	zsi.initInputTypesAndFormats();
+	
     
-	 
 </pre>
 
 <h2 id="strExist">zsi &#9658; strExist : <span class="func"> function() <span></h2>
-<p >strExist</p>
+<p >returns boolean result</p>
 <pre class="brush: js;">   
     //Example: 
+	var source='The quick brown fox';
+	var value ='quick';
 	
-    
-    
+    var result = zsi.strExist(source,value);    
 	 
 </pre>
 
 
 <h2 id="getQueryValue">url &#9658; getQueryValue : <span class="func"> function() <span></h2>
-<p >getQueryValue</p>
+<p >returns the value of delimited string</p>
 <pre class="brush: js;">   
     //Example: 
+
+	var params='keyA=1&keyB=2&keyC=3';
+	var keyname ='keyB';
 	
-    
-    
+    var result = zsi.getQueryValue(params,keyname);    
+	 //answer = 2   
 	 
 </pre>
 
 <h2 id="removeQueryItem">url &#9658; removeQueryItem : <span class="func"> function() <span></h2>
-<p >removeQueryItem</p>
+<p >remove key-value-pair item from a string</p>
 <pre class="brush: js;">   
     //Example: 
+
+	var keyname ='keyB';
+    var result = zsi.removeQueryItem(keyname);    
 	
-    
-    
-	 
+	//result = keyA=1&keyC=3';
 </pre>
 
 <h2 id="addClickHighlight">JQuery Extended Functions &#9658; addClickHighlight : <span class="func"> function() <span></h2>
-<p >addClickHighlight</p>
+<p >sets click event highlight to all rows in a table</p>
 <pre class="brush: js;">   
     //Example: 
 	
-     tbl.addClickHighlight();
-    
-	 
+     $("#tbl").addClickHighlight();
+    	 
 </pre>
 
 <h2 id="center">JQuery Extended Functions &#9658; center : <span class="func"> function() <span></h2>
-<p >center</p>
+<p >centers the element to window screen - weight & width </p>
 <pre class="brush: js;">   
-    //Example: 
-	
-    
-    
+    //Example: 	
+     $("#div1").center();
 	 
 </pre>
 
 <h2 id="centerWidth">JQuery Extended Functions &#9658; centerWidth : <span class="func"> function() <span></h2>
-<p >centerWidth</p>
+<p >centers the element to window screen - width only </p>
 <pre class="brush: js;">   
     //Example: 
-	
-    
-    
+	 $("#div1").centerWidth();    
 	 
 </pre>
 
@@ -680,23 +668,6 @@ $("#btnSaveNotes").click(function (){
 	 
 </pre>
 
-<h2 id="tabIndexSwitch">JQuery Extended Functions &#9658; tabIndexSwitch : <span class="func"> function() <span></h2>
-<p >Switch Tab Index</p>
-<pre class="brush: js;">   
-    //Example: 
-	
- var $li = $("#tabsArea ul li.active");
-    var i = $li.index();
-    switch(i){
-        case 0: submitPMYs();break;
-        case 1: submitPHF();break;
-        case 2: submitProgramDREs();break;
-        case 3: submitOPM();break;
-        default:break;
-    }
-   
-	 
-</pre>
 
 <h2 id="dataBind">JQuery Extended Functions &#9658; dataBind: <span class="func"> function( {} ) <span></h2>
 <p >This function is used to display the list of records.</p>
@@ -1054,7 +1025,7 @@ $(&quot;#grid&quot;).dataBind({
 </pre>
 
 <h2 id="getCheckBoxesValues">JQuery Extended Functions &#9658; getCheckBoxesValues : <span class="func"> function() <span></h2>
-<p >check value of check box</p>
+<p >return the values of the checkbox in an Array format.</p>
 <pre class="brush: js;">   
     //Example: 
 	
@@ -1086,17 +1057,6 @@ $(&quot;#grid&quot;).dataBind({
 	 
 </pre>
 
-<h2 id="loadData2">JQuery Extended Functions &#9658; loadData2 : <span class="func"> function({}) <span></h2>
-<p >loadData2</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-		
-	
- 
-    
-	 
-</pre>
 
 <h2 id="serializeExclude">JQuery Extended Functions &#9658; serializeExclude : <span class="func"> function(arrayNames) <span></h2>
 <p >serializeExclude</p>
@@ -1126,14 +1086,6 @@ $(&quot;#grid&quot;).dataBind({
 	 
 </pre>
 
-<h2 id="setIdIfChecked">JQuery Extended Functions &#9658; setIdIfChecked : <span class="func"> function(value, elementId) <span></h2>
-<p >setIdIfChecked</p>
-<pre class="brush: js;">   
-    //Example: 
-	  
-    $("#" + tblSpecsPropNew).setIdIfChecked(id,"specs_id");  
-	 
-</pre>
 
 <h2 id="toJSON">JQuery Extended Functions &#9658; googleSearch : <span class="func"> function({}) <span></h2>
 <p >Google Search</p>
@@ -1179,16 +1131,6 @@ $.get(procURL + "elect_cdr_search_sel @keyword='" + keyword + "',@project_id_par
 </pre>
 
 
-<h2 id="setUniqueOptions">JQuery Extended Functions &#9658; setUniqueOptions : <span class="func"> function() <span></h2>
-<p >setUniqueOptions</p>
-<pre class="brush: js;">   
-    //Example: 
-	
-    
-    
-	 
-</pre>
-
 <h2 id="showPopup">JQuery Extended Functions &#9658; showPopup : <span class="func"> function({}) <span></h2>
 <p >showPopup</p>
 <pre class="brush: js;">   
@@ -1202,15 +1144,7 @@ $.get(procURL + "elect_cdr_search_sel @keyword='" + keyword + "',@project_id_par
 	 
 </pre>
 
-<h2 id="toJSON">JQuery Extended Functions &#9658; toJSON : <span class="func"> function({}) <span></h2>
-<p >Convert HTML Elements to JSON format</p>
-<pre class="brush: js;">   
-    //Example: 
-	 
-    
-    
-	 
-</pre>
+
  
 </div>
 </body>
