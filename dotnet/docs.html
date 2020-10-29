@@ -16,14 +16,27 @@
 <div class="main">
 
 <h2 id="zsiExecuteCmd">zsi &#9658; zsiExecuteCmd : <span class="func"> function({}) <span></h2>
-<p >zsiExecuteCmd</p>
+<p >executes SQL command </p>
+<table >
+	<tr><th>JSON Data parameters</th><th>Description </th><th>Optional </th></tr>
+	<tr>
+	<tr>
+		<td>sqlCode</td><td>SQL code from sqlCommands</td><td>No</td>
+	</tr>
+		<td>parameters</td><td>Arrays of key-value-pair object</td><td>Yes</td>
+	</tr>
+	</tr>
+		<td>onComplete</td><td>This function fires after accessing the API </td><td>Yes</td>
+	</tr>
+ 
+	
+</table>
 <pre class="brush: js;"> 
-	//I recommend using executeCmd in order for us to protect our data from spying and sql injections.
-
 	 zsi.executeCmd({
-           sqlCode : "D1214"
+           sqlCode : "D1214"  
           ,parameters: {
-              company_id : 1
+               company_id : 1
+			  ,client_id: 4
           }
          ,onComplete: function(data){
             console.log("response data",data);   
@@ -694,8 +707,7 @@ $("#btnSaveNotes").click(function (){
 <h2 >dataBind for Grid/Table, you can also use dataBindGrid function: </h2>
 <table>
 	<tr><th>JSON Data parameters</th><th>Description 										</th><th>Optional</th></tr>
-	<tr><td>url 				</td><td>Url of data 										</td><td>Yes</td></tr>
-	<tr><td>rows 				</td><td>Array of data objects. No need to include "url" parameter 	</td><td>Yes</td></tr>
+	<tr><td>url/rows/sqlCode 	</td><td>API url or data objects or SQLCode 				</td><td>Yes</td></tr>
 	<tr><td>blankRowsLimit		</td><td>number of rows. this is only for new entry. 		</td><td>Yes</td></tr>
 	<tr><td>width 				</td><td>Width of table										</td><td>Yes</td></tr>
 	<tr><td>height 				</td><td>Height of table 									</td><td>Yes</td></tr>	
